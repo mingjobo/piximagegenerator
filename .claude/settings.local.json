@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)",
+      "Bash(rm:*)",
+      "Bash(git clone:*)",
+      "Bash(cp:*)",
+      "Bash(mkdir:*)",
+      "Bash(rsync:*)",
+      "Bash(git remote:*)",
+      "Bash(gh repo create:*)",
+      "Bash(pnpm install:*)",
+      "Bash(timeout 30 pnpm dev)",
+      "Bash(pnpm dev:*)",
+      "Bash(chmod:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "/Users/evan/Desktop/Code"
+    ]
+  }
+}
