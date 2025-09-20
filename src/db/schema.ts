@@ -142,3 +142,13 @@ export const feedbacks = pgTable("feedbacks", {
   content: text(),
   rating: integer(),
 });
+
+// Works table for PX-EMOJI
+export const works = pgTable("works", {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  uuid: varchar({ length: 255 }).notNull().unique(),
+  user_uuid: varchar({ length: 255 }).notNull(),
+  emoji: varchar({ length: 50 }).notNull(),
+  image_url: varchar({ length: 255 }).notNull(),
+  created_at: timestamp({ withTimezone: true }).defaultNow(),
+});
