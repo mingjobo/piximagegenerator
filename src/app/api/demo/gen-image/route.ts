@@ -4,6 +4,7 @@ import { respData, respErr } from "@/lib/resp";
 import type { ImageModelV1 } from "@ai-sdk/provider";
 import { getUuid } from "@/lib/hash";
 import { kling } from "@/aisdk/kling";
+import { apicore } from "@/aisdk/apicore";
 import { newStorage } from "@/lib/storage";
 import { openai } from "@ai-sdk/openai";
 import { replicate } from "@ai-sdk/replicate";
@@ -40,6 +41,14 @@ export async function POST(req: Request) {
         imageModel = kling.image(model);
         providerOptions = {
           kling: {},
+        };
+        break;
+      case "apicore":
+        imageModel = apicore.image(model);
+        providerOptions = {
+          apicore: {
+            size: "1024x1024",
+          },
         };
         break;
       default:

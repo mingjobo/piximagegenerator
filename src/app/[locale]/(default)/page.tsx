@@ -2,6 +2,7 @@ import EmojiInput from "@/components/blocks/emoji-input";
 import PixelGallery from "@/components/blocks/pixel-gallery";
 import { getLandingPage } from "@/services/page";
 import { setRequestLocale } from "next-intl/server";
+import ClientPageContent from "./client-page-content";
 
 export const revalidate = 60;
 export const dynamic = "force-static";
@@ -36,10 +37,5 @@ export default async function LandingPage({
 
   const page = await getLandingPage(locale);
 
-  return (
-    <>
-      {page.hero && <EmojiInput section={page.hero} />}
-      {page.gallery && <PixelGallery section={page.gallery} />}
-    </>
-  );
+  return <ClientPageContent page={page} />;
 }

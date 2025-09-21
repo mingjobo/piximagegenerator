@@ -9,9 +9,10 @@ import { Section as SectionType } from "@/types/blocks/section";
 
 interface EmojiInputProps {
   section: SectionType;
+  onWorkCreated?: (work: any) => void; // 回调函数，当创建新作品时调用
 }
 
-export default function EmojiInput({ section }: EmojiInputProps) {
+export default function EmojiInput({ section, onWorkCreated }: EmojiInputProps) {
   const [emoji, setEmoji] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const { data: session } = useSession();
@@ -25,7 +26,6 @@ export default function EmojiInput({ section }: EmojiInputProps) {
 
     // 检查登录状态
     if (!session) {
-      // TODO: 弹窗提示登录 - 后续实现
       alert("Please sign in to generate pixel art");
       router.push("/auth/signin");
       return;
@@ -40,20 +40,37 @@ export default function EmojiInput({ section }: EmojiInputProps) {
     setIsGenerating(true);
 
     try {
-      // TODO: 调用 pixelate API - 等你提供 OpenAI 接口后实现
-      console.log("Generating pixel art for:", emoji);
+      const response = await fetch("/api/pixelate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emoji: emoji.trim(),
+        }),
+      });
 
-      // 模拟 API 调用
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const result = await response.json();
 
-      // 清空输入框
-      setEmoji("");
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to generate pixel art");
+      }
 
-      // TODO: 刷新画廊 - 画廊组件实现后添加
+      if (result.success && result.data) {
+        // 清空输入框
+        setEmoji("");
 
-    } catch (error) {
+        // 通知父组件新作品已创建
+        if (onWorkCreated) {
+          onWorkCreated(result.data);
+        }
+      } else {
+        throw new Error(result.message || "Failed to generate pixel art");
+      }
+
+    } catch (error: any) {
       console.error("Failed to generate pixel art:", error);
-      alert("Failed to pixelate. Try again.");
+      alert(error.message || "Failed to pixelate. Try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -84,25 +101,27 @@ export default function EmojiInput({ section }: EmojiInputProps) {
           </p>
 
           {/* Input Area */}
-          <div className="w-full max-w-md space-y-4">
-            <Input
-              type="text"
-              placeholder="Enter an emoji here… Examples: 😂 🍦 👀 🏳️‍🌈 or :ice_cream:"
-              value={emoji}
-              onChange={(e) => setEmoji(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className="text-lg h-12 text-center"
-              disabled={isGenerating}
-            />
+          <div className="w-full max-w-2xl">
+            <div className="flex gap-4 items-center">
+              <Input
+                type="text"
+                placeholder="Enter an emoji here… Examples: 😂 🍦 👀 🏳️‍🌈 or :ice_cream:"
+                value={emoji}
+                onChange={(e) => setEmoji(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="flex-1 text-lg h-14 px-6 text-center border-gray-300 rounded-xl shadow-sm focus:shadow-md focus:border-purple-400 transition-all"
+                disabled={isGenerating}
+              />
 
-            <Button
-              onClick={handleSubmit}
-              disabled={isGenerating || !emoji.trim()}
-              size="lg"
-              className="w-full h-12 text-lg"
-            >
-              {isGenerating ? "Pixelating..." : "Pixelate Now"}
-            </Button>
+              <Button
+                onClick={handleSubmit}
+                disabled={isGenerating || !emoji.trim()}
+                size="lg"
+                className="h-14 px-8 text-lg bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-sm hover:shadow-md transition-all font-medium"
+              >
+                {isGenerating ? "Pixelating..." : "Pixelate Now"}
+              </Button>
+            </div>
           </div>
 
           {/* Tip */}

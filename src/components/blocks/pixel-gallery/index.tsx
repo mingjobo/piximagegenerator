@@ -6,37 +6,56 @@ import WorkCard, { Work } from "@/components/blocks/work-card";
 
 interface PixelGalleryProps {
   section: SectionType;
+  onNewWork?: (work: Work) => void; // 导出函数供父组件使用
+}
+
+// Gallery API 响应类型
+interface GalleryResponse {
+  success: boolean;
+  data: {
+    works: Work[];
+    has_more: boolean;
+    next_cursor: string | null;
+  };
+  message?: string;
 }
 
 export default function PixelGallery({ section }: PixelGalleryProps) {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
+  const [cursor, setCursor] = useState<string | null>(null);
 
   // 获取作品列表
-  const fetchWorks = useCallback(async (pageNum: number, reset = false) => {
+  const fetchWorks = useCallback(async (nextCursor: string | null = null, reset = false) => {
+    if (loading) return;
+
     setLoading(true);
     try {
-      // TODO: 调用实际的 API - 等后端实现后替换
-      console.log(`Fetching works page ${pageNum}`);
-
-      // 模拟 API 响应
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      const mockWorks: Work[] = [
-        // 暂时用模拟数据，等 API 实现后替换
-      ];
-
-      if (reset) {
-        setWorks(mockWorks);
-      } else {
-        setWorks(prev => [...prev, ...mockWorks]);
+      const params = new URLSearchParams();
+      params.append("limit", "30");
+      if (nextCursor) {
+        params.append("cursor", nextCursor);
       }
 
-      // 如果返回的数据少于 30 条，说明没有更多了
-      if (mockWorks.length < 30) {
-        setHasMore(false);
+      const response = await fetch(`/api/gallery?${params.toString()}`);
+      const result: GalleryResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to fetch gallery");
+      }
+
+      if (result.success && result.data) {
+        const { works: newWorks, has_more, next_cursor } = result.data;
+
+        if (reset) {
+          setWorks(newWorks);
+        } else {
+          setWorks(prev => [...prev, ...newWorks]);
+        }
+
+        setHasMore(has_more);
+        setCursor(next_cursor);
       }
 
     } catch (error) {
@@ -44,11 +63,16 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
     } finally {
       setLoading(false);
     }
+  }, [loading]);
+
+  // 添加新作品到画廊顶部
+  const addNewWork = useCallback((newWork: Work) => {
+    setWorks(prev => [newWork, ...prev]);
   }, []);
 
   // 初始加载
   useEffect(() => {
-    fetchWorks(1, true);
+    fetchWorks(null, true);
   }, [fetchWorks]);
 
   // 无限滚动
@@ -61,21 +85,20 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
       const clientHeight = document.documentElement.clientHeight;
 
       if (scrollTop + clientHeight >= scrollHeight - 1000) {
-        setPage(prev => prev + 1);
-        fetchWorks(page + 1);
+        fetchWorks(cursor);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, hasMore, page, fetchWorks]);
+  }, [loading, hasMore, cursor, fetchWorks]);
 
-  // 添加新作品到画廊顶部
-  const addNewWork = useCallback((newWork: Work) => {
-    setWorks(prev => [newWork, ...prev]);
-  }, []);
-
-  // 将 addNewWork 函数暴露给父组件 - 后续实现时可以通过 context 或 props 传递
+  // 暴露添加新作品的方法给父组件
+  useEffect(() => {
+    if (section.onNewWork) {
+      section.onNewWork(addNewWork);
+    }
+  }, [section, addNewWork]);
 
   if (section.disabled) {
     return null;
@@ -94,9 +117,9 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
           )}
         </div>
 
-        {/* Works Grid */}
+        {/* Works Grid - 匹配截图的 4 列布局 */}
         {works.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {works.map((work) => (
               <WorkCard key={work.uuid} work={work} />
             ))}
