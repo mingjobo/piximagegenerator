@@ -1,9 +1,9 @@
 {
-  "name": "shipany-template-one",
+  "name": "PixelArt-template-one",
   "version": "2.6.0",
   "private": true,
   "author": "idoubi",
-  "homepage": "https://shipany.ai",
+  "homepage": "https://PixelArt.ai",
   "scripts": {
     "dev": "cross-env NODE_NO_WARNINGS=1 next dev --turbopack",
     "build": "next build",
@@ -14,7 +14,7 @@
     "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "docker:build": "docker build -f Dockerfile -t shipany-template-one:latest .",
+    "docker:build": "docker build -f Dockerfile -t PixelArt-template-one:latest .",
     "db:generate": "npx drizzle-kit generate --config=src/db/config.ts",
     "db:migrate": "npx drizzle-kit migrate --config=src/db/config.ts",
     "db:studio": "npx drizzle-kit studio --config=src/db/config.ts",

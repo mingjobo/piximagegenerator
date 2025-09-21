@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a ShipAny Template One project - a Next.js-based SaaS boilerplate with AI capabilities, authentication, payments, and multi-language support. The project uses TypeScript, React 19, and is built for rapid deployment to Vercel or Cloudflare.
+This is a PixelArt Template One project - a Next.js-based SaaS boilerplate with AI capabilities, authentication, payments, and multi-language support. The project uses TypeScript, React 19, and is built for rapid deployment to Vercel or Cloudflare.
 
 ## Common Development Commands
 

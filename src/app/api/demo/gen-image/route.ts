@@ -74,7 +74,7 @@ export async function POST(req: Request) {
     const processedImages = await Promise.all(
       images.map(async (image, index) => {
         const filename = `${provider}_image_${batch}_${index}.png`;
-        const key = `shipany/${filename}`;
+        const key = `PixelArt/${filename}`;
         const body = Buffer.from(image.base64, "base64");
 
         try {
