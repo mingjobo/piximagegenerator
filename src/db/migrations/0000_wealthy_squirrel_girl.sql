@@ -1,5 +1,11 @@
-CREATE TABLE "affiliates" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "affiliates_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+-- 创建 pixelart schema（如果不存在）
+CREATE SCHEMA IF NOT EXISTS pixelart;
+--> statement-breakpoint
+-- 设置搜索路径，让后续的表都创建在 pixelart schema 下
+SET search_path TO pixelart;
+--> statement-breakpoint
+CREATE TABLE "pixelart"."affiliates" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.affiliates_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"user_uuid" varchar(255) NOT NULL,
 	"created_at" timestamp with time zone,
 	"status" varchar(50) DEFAULT '' NOT NULL,
@@ -10,8 +16,8 @@ CREATE TABLE "affiliates" (
 	"reward_amount" integer DEFAULT 0 NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE "apikeys" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "apikeys_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "pixelart"."apikeys" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.apikeys_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"api_key" varchar(255) NOT NULL,
 	"title" varchar(100),
 	"user_uuid" varchar(255) NOT NULL,
@@ -20,8 +26,8 @@ CREATE TABLE "apikeys" (
 	CONSTRAINT "apikeys_api_key_unique" UNIQUE("api_key")
 );
 --> statement-breakpoint
-CREATE TABLE "credits" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "credits_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "pixelart"."credits" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.credits_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"trans_no" varchar(255) NOT NULL,
 	"created_at" timestamp with time zone,
 	"user_uuid" varchar(255) NOT NULL,
@@ -32,8 +38,8 @@ CREATE TABLE "credits" (
 	CONSTRAINT "credits_trans_no_unique" UNIQUE("trans_no")
 );
 --> statement-breakpoint
-CREATE TABLE "feedbacks" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "feedbacks_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "pixelart"."feedbacks" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.feedbacks_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"created_at" timestamp with time zone,
 	"status" varchar(50),
 	"user_uuid" varchar(255),
@@ -41,8 +47,8 @@ CREATE TABLE "feedbacks" (
 	"rating" integer
 );
 --> statement-breakpoint
-CREATE TABLE "orders" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "orders_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "pixelart"."orders" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.orders_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"order_no" varchar(255) NOT NULL,
 	"created_at" timestamp with time zone,
 	"user_uuid" varchar(255) DEFAULT '' NOT NULL,
@@ -70,8 +76,8 @@ CREATE TABLE "orders" (
 	CONSTRAINT "orders_order_no_unique" UNIQUE("order_no")
 );
 --> statement-breakpoint
-CREATE TABLE "posts" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "posts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "pixelart"."posts" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.posts_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"uuid" varchar(255) NOT NULL,
 	"slug" varchar(255),
 	"title" varchar(255),
@@ -87,8 +93,8 @@ CREATE TABLE "posts" (
 	CONSTRAINT "posts_uuid_unique" UNIQUE("uuid")
 );
 --> statement-breakpoint
-CREATE TABLE "users" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "users_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+CREATE TABLE "pixelart"."users" (
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "pixelart.users_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"uuid" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"created_at" timestamp with time zone,
@@ -106,4 +112,4 @@ CREATE TABLE "users" (
 	CONSTRAINT "users_uuid_unique" UNIQUE("uuid")
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX "email_provider_unique_idx" ON "users" USING btree ("email","signin_provider");
+CREATE UNIQUE INDEX "email_provider_unique_idx" ON "pixelart"."users" USING btree ("email","signin_provider");

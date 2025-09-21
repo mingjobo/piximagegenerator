@@ -1,5 +1,6 @@
 import {
   pgTable,
+  pgSchema,
   serial,
   varchar,
   text,
@@ -10,8 +11,11 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-// Users table
-export const users = pgTable(
+// 定义 pixelart schema
+export const pixelartSchema = pgSchema("pixelart");
+
+// Users table - 在 pixelart schema 下创建
+export const users = pixelartSchema.table(
   "users",
   {
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -38,8 +42,8 @@ export const users = pgTable(
   ]
 );
 
-// Orders table
-export const orders = pgTable("orders", {
+// Orders table - 在 pixelart schema 下创建
+export const orders = pixelartSchema.table("orders", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   order_no: varchar({ length: 255 }).notNull().unique(),
   created_at: timestamp({ withTimezone: true }),
@@ -67,8 +71,8 @@ export const orders = pgTable("orders", {
   paid_detail: text(),
 });
 
-// API Keys table
-export const apikeys = pgTable("apikeys", {
+// API Keys table - 在 pixelart schema 下创建
+export const apikeys = pixelartSchema.table("apikeys", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   api_key: varchar({ length: 255 }).notNull().unique(),
   title: varchar({ length: 100 }),
@@ -77,8 +81,8 @@ export const apikeys = pgTable("apikeys", {
   status: varchar({ length: 50 }),
 });
 
-// Credits table
-export const credits = pgTable("credits", {
+// Credits table - 在 pixelart schema 下创建
+export const credits = pixelartSchema.table("credits", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   trans_no: varchar({ length: 255 }).notNull().unique(),
   created_at: timestamp({ withTimezone: true }),
@@ -89,8 +93,8 @@ export const credits = pgTable("credits", {
   expired_at: timestamp({ withTimezone: true }),
 });
 
-// Categories table
-export const categories = pgTable("categories", {
+// Categories table - 在 pixelart schema 下创建
+export const categories = pixelartSchema.table("categories", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   uuid: varchar({ length: 255 }).notNull().unique(),
   name: varchar({ length: 255 }).notNull().unique(),
@@ -102,8 +106,8 @@ export const categories = pgTable("categories", {
   updated_at: timestamp({ withTimezone: true }),
 });
 
-// Posts table
-export const posts = pgTable("posts", {
+// Posts table - 在 pixelart schema 下创建
+export const posts = pixelartSchema.table("posts", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   uuid: varchar({ length: 255 }).notNull().unique(),
   slug: varchar({ length: 255 }),
@@ -120,8 +124,8 @@ export const posts = pgTable("posts", {
   category_uuid: varchar({ length: 255 }),
 });
 
-// Affiliates table
-export const affiliates = pgTable("affiliates", {
+// Affiliates table - 在 pixelart schema 下创建
+export const affiliates = pixelartSchema.table("affiliates", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   user_uuid: varchar({ length: 255 }).notNull(),
   created_at: timestamp({ withTimezone: true }),
@@ -133,8 +137,8 @@ export const affiliates = pgTable("affiliates", {
   reward_amount: integer().notNull().default(0),
 });
 
-// Feedbacks table
-export const feedbacks = pgTable("feedbacks", {
+// Feedbacks table - 在 pixelart schema 下创建
+export const feedbacks = pixelartSchema.table("feedbacks", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   created_at: timestamp({ withTimezone: true }),
   status: varchar({ length: 50 }),
@@ -143,8 +147,8 @@ export const feedbacks = pgTable("feedbacks", {
   rating: integer(),
 });
 
-// Works table for PX-EMOJI
-export const works = pgTable("works", {
+// Works table for PX-EMOJI - 在 pixelart schema 下创建
+export const works = pixelartSchema.table("works", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   uuid: varchar({ length: 255 }).notNull().unique(),
   user_uuid: varchar({ length: 255 }).notNull(),
