@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import EmojiInput from "@/components/blocks/emoji-input";
 import PixelGallery from "@/components/blocks/pixel-gallery";
 import { Work } from "@/components/blocks/work-card";
@@ -10,26 +9,17 @@ interface ClientPageContentProps {
 }
 
 export default function ClientPageContent({ page }: ClientPageContentProps) {
-  const addNewWorkRef = useRef<((work: Work) => void) | null>(null);
-
+  // 暂时简化，先让gallery正常工作
   const handleWorkCreated = (work: Work) => {
-    if (addNewWorkRef.current) {
-      addNewWorkRef.current(work);
-    }
+    // 将来可以在这里处理新作品创建后的逻辑
+    console.log("New work created:", work);
+    // TODO: 可以考虑用其他方式通知gallery刷新
   };
-
-  // 设置 gallery section 的回调
-  const gallerySection = page.gallery ? {
-    ...page.gallery,
-    onNewWork: (fn: (work: Work) => void) => {
-      addNewWorkRef.current = fn;
-    }
-  } : null;
 
   return (
     <>
       {page.hero && <EmojiInput section={page.hero} onWorkCreated={handleWorkCreated} />}
-      {gallerySection && <PixelGallery section={gallerySection} />}
+      {page.gallery && <PixelGallery section={page.gallery} />}
     </>
   );
 }

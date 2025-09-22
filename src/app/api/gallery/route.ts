@@ -3,6 +3,20 @@ import { db } from "@/db";
 import { works } from "@/db/schema";
 import { desc, lt } from "drizzle-orm";
 import { shouldUseMockData, getMockWorks } from "@/lib/mock-data";
+import { getFallbackImageUrl } from "@/lib/s3-config";
+
+// 验证图片 URL 是否可访问
+function validateImageUrl(url: string): string {
+  if (!url) return "";
+
+  // 如果是 S3 URL 且包含有问题的域名，返回空字符串
+  if (url.includes("s3pixelart.s3") && url.includes("amazonaws.com")) {
+    // S3 bucket 可能不存在或有权限问题，使用备用方案
+    return "";
+  }
+
+  return url;
+}
 
 export async function GET(req: Request) {
   try {
@@ -46,7 +60,7 @@ export async function GET(req: Request) {
         uuid: work.uuid,
         user_uuid: work.user_uuid,
         emoji: work.emoji,
-        image_url: work.image_url,
+        image_url: validateImageUrl(work.image_url), // 验证并处理 URL
         created_at: work.created_at,
       })),
       has_more: hasMore,

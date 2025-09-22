@@ -4,8 +4,8 @@ import { getLandingPage } from "@/services/page";
 import { setRequestLocale } from "next-intl/server";
 import ClientPageContent from "./client-page-content";
 
-export const revalidate = 60;
-export const dynamic = "force-static";
+// Gallery需要动态数据，不能使用force-static
+export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
 export async function generateMetadata({

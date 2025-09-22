@@ -1,14 +1,14 @@
 // Mock 数据服务 - 在数据库未配置时使用
 import { Work } from "@/components/blocks/work-card";
 
-// 内存中的 mock 数据存储
+// 内存中的 mock 数据存储 - 使用空 URL 让前端渲染占位符
 let mockWorks: Work[] = [
   {
     id: 1,
     uuid: "mock-work-1",
     user_uuid: "mock-user-1",
     emoji: "🍦",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=🍦",
+    image_url: "", // 空 URL 会触发 PixelPlaceholder 组件
     created_at: new Date("2024-01-20T10:00:00")
   },
   {
@@ -16,7 +16,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-2",
     user_uuid: "mock-user-2",
     emoji: "😂",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=😂",
+    image_url: "",
     created_at: new Date("2024-01-20T11:00:00")
   },
   {
@@ -24,7 +24,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-3",
     user_uuid: "mock-user-1",
     emoji: "🔥",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=🔥",
+    image_url: "",
     created_at: new Date("2024-01-20T12:00:00")
   },
   {
@@ -32,7 +32,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-4",
     user_uuid: "mock-user-3",
     emoji: "👀",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=👀",
+    image_url: "",
     created_at: new Date("2024-01-20T13:00:00")
   },
   {
@@ -40,7 +40,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-5",
     user_uuid: "mock-user-2",
     emoji: "🎉",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=🎉",
+    image_url: "",
     created_at: new Date("2024-01-20T14:00:00")
   },
   {
@@ -48,7 +48,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-6",
     user_uuid: "mock-user-1",
     emoji: "🏳️‍🌈",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=🏳️‍🌈",
+    image_url: "",
     created_at: new Date("2024-01-20T15:00:00")
   },
   {
@@ -56,7 +56,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-7",
     user_uuid: "mock-user-3",
     emoji: "🤖",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=🤖",
+    image_url: "",
     created_at: new Date("2024-01-20T16:00:00")
   },
   {
@@ -64,7 +64,7 @@ let mockWorks: Work[] = [
     uuid: "mock-work-8",
     user_uuid: "mock-user-2",
     emoji: "💎",
-    image_url: "https://placehold.co/512x512/9333EA/FFFFFF/png?text=💎",
+    image_url: "",
     created_at: new Date("2024-01-20T17:00:00")
   }
 ];
@@ -138,9 +138,6 @@ export async function createMockWork(
 
 // Mock: 生成像素艺术图片 URL
 export function generateMockPixelArtUrl(emoji: string): string {
-  // 使用 placeholder 服务生成带有 emoji 的图片
-  // 实际项目中会调用真实的 APICore
-  const colors = ["9333EA", "EC4899", "3B82F6", "10B981", "F59E0B", "EF4444"];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
-  return `https://placehold.co/512x512/${randomColor}/FFFFFF/png?text=${encodeURIComponent(emoji)}`;
+  // 返回空字符串，让前端使用 PixelPlaceholder 组件
+  return "";
 }
