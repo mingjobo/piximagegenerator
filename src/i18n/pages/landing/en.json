@@ -13,12 +13,19 @@
     "nav": {
       "items": [
         {
+          "title": "Home",
+          "url": "/",
+          "icon": "RiHomeLine"
+        },
+        {
           "title": "Pricing",
-          "url": "/pricing"
+          "url": "/pricing",
+          "icon": "RiMoneyDollarBoxLine"
         },
         {
           "title": "Blog",
-          "url": "/posts"
+          "url": "/posts",
+          "icon": "RiArticleLine"
         }
       ]
     },

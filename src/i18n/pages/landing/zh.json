@@ -13,12 +13,19 @@
     "nav": {
       "items": [
         {
+          "title": "首页",
+          "url": "/",
+          "icon": "RiHomeLine"
+        },
+        {
           "title": "定价",
-          "url": "/pricing"
+          "url": "/pricing",
+          "icon": "RiMoneyDollarBoxLine"
         },
         {
           "title": "博客",
-          "url": "/posts"
+          "url": "/posts",
+          "icon": "RiArticleLine"
         }
       ]
     },

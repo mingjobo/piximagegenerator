@@ -41,7 +41,8 @@ export default function Header({ header }: { header: HeaderType }) {
   return (
     <section className="py-3">
       <div className="container">
-        <nav className="hidden justify-between lg:flex">
+        <nav className="hidden lg:grid lg:grid-cols-3 lg:items-center">
+          {/* Left: Brand */}
           <div className="flex items-center gap-6">
             <Link
               href={(header.brand?.url as any) || "/"}
@@ -60,8 +61,12 @@ export default function Header({ header }: { header: HeaderType }) {
                 </span>
               )}
             </Link>
-            <div className="flex items-center">
-              <NavigationMenu>
+            <div className="flex items-center"></div>
+          </div>
+
+          {/* Center: Nav */}
+          <div className="flex items-center justify-center">
+            <NavigationMenu>
                 <NavigationMenuList>
                   {header.nav?.items?.map((item, i) => {
                     if (item.children && item.children.length > 0) {
@@ -70,7 +75,7 @@ export default function Header({ header }: { header: HeaderType }) {
                           key={i}
                           className="text-muted-foreground"
                         >
-                          <NavigationMenuTrigger>
+                          <NavigationMenuTrigger className="text-base">
                             {item.icon && (
                               <Icon
                                 name={item.icon}
@@ -119,7 +124,7 @@ export default function Header({ header }: { header: HeaderType }) {
                       <NavigationMenuItem key={i}>
                         <Link
                           className={cn(
-                            "text-muted-foreground",
+                            "text-muted-foreground text-base",
                             navigationMenuTriggerStyle,
                             buttonVariants({
                               variant: "ghost",
@@ -131,7 +136,7 @@ export default function Header({ header }: { header: HeaderType }) {
                           {item.icon && (
                             <Icon
                               name={item.icon}
-                              className="size-4 shrink-0 mr-0"
+                              className="size-4 shrink-0 mr-2"
                             />
                           )}
                           {item.title}
@@ -141,9 +146,10 @@ export default function Header({ header }: { header: HeaderType }) {
                   })}
                 </NavigationMenuList>
               </NavigationMenu>
-            </div>
           </div>
-          <div className="shrink-0 flex gap-2 items-center">
+
+          {/* Right: Actions */}
+          <div className="shrink-0 flex gap-2 items-center justify-end">
             {header.show_locale && <LocaleToggle />}
             {header.show_theme && <ThemeToggle />}
 

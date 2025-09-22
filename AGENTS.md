@@ -40,3 +40,5 @@
 - Cloudflare: copy `wrangler.toml.example` → `wrangler.toml` and set `[vars]` from `.env.production`.
 - Verify breaking changes with `pnpm build && pnpm start` before deploying.
 
+## 语言
+- 回复、md文档、注释的语言，都用简体中文。
