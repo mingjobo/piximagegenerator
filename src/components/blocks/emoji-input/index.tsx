@@ -10,9 +10,10 @@ import { Section as SectionType } from "@/types/blocks/section";
 interface EmojiInputProps {
   section: SectionType;
   onWorkCreated?: (work: any) => void; // 回调函数，当创建新作品时调用
+  compact?: boolean; // 紧凑模式：减少底部留白，便于与预览画廊贴近显示
 }
 
-export default function EmojiInput({ section, onWorkCreated }: EmojiInputProps) {
+export default function EmojiInput({ section, onWorkCreated, compact = false }: EmojiInputProps) {
   const [emoji, setEmoji] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const { data: session } = useSession();
@@ -87,7 +88,10 @@ export default function EmojiInput({ section, onWorkCreated }: EmojiInputProps) 
   }
 
   return (
-    <section id={section.name} className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section
+      id={section.name}
+      className={`${compact ? "pt-20 pb-4" : "py-24"} bg-gradient-to-b from-background to-muted/20`}
+    >
       <div className="container">
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
           {/* Hero Title */}
@@ -101,15 +105,15 @@ export default function EmojiInput({ section, onWorkCreated }: EmojiInputProps) 
           </p>
 
           {/* Input Area */}
-          <div className="w-full max-w-2xl">
-            <div className="flex gap-4 items-center">
+          <div className="w-full max-w-3xl">
+            <div className="flex items-center gap-3 md:gap-4">
               <Input
                 type="text"
-                placeholder="Enter an emoji here… Examples: 😂 🍦 👀 🏳️‍🌈 or :ice_cream:"
+                placeholder="Enter an emoji here… Examples: 😂 🍦 👀 🏳️‍🌈"
                 value={emoji}
                 onChange={(e) => setEmoji(e.target.value)}
                 onKeyPress={handleKeyPress}
-                className="flex-1 text-lg h-14 px-6 text-center border-gray-300 rounded-xl shadow-sm focus:shadow-md focus:border-purple-400 transition-all"
+                className="flex-1 text-lg h-14 px-6 text-center border-border rounded-xl shadow-sm focus:shadow-md focus:border-primary transition-all"
                 disabled={isGenerating}
               />
 
@@ -117,7 +121,7 @@ export default function EmojiInput({ section, onWorkCreated }: EmojiInputProps) 
                 onClick={handleSubmit}
                 disabled={isGenerating || !emoji.trim()}
                 size="lg"
-                className="h-14 px-8 text-lg bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-sm hover:shadow-md transition-all font-medium"
+                className="h-14 px-6 md:px-7 text-base md:text-lg rounded-xl shadow-sm hover:shadow-md transition-all font-medium shrink-0"
               >
                 {isGenerating ? "Pixelating..." : "Pixelate Now"}
               </Button>

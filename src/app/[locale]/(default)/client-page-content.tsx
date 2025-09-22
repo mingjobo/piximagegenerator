@@ -18,8 +18,14 @@ export default function ClientPageContent({ page }: ClientPageContentProps) {
 
   return (
     <>
-      {page.hero && <EmojiInput section={page.hero} onWorkCreated={handleWorkCreated} />}
-      {page.gallery && <PixelGallery section={page.gallery} />}
+      {page.hero && (
+        <EmojiInput
+          section={page.hero}
+          onWorkCreated={handleWorkCreated}
+          compact
+        />
+      )}
+      {page.gallery && <PixelGallery section={page.gallery} preview />}
     </>
   );
 }

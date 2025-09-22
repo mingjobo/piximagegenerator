@@ -6,6 +6,7 @@ import WorkCard, { Work } from "@/components/blocks/work-card";
 
 interface PixelGalleryProps {
   section: SectionType;
+  preview?: boolean; // 预览模式：仅展示一行，隐藏标题与无限滚动
 }
 
 interface GalleryResponse {
@@ -18,7 +19,7 @@ interface GalleryResponse {
   };
 }
 
-export default function PixelGallery({ section }: PixelGalleryProps) {
+export default function PixelGallery({ section, preview = false }: PixelGalleryProps) {
   const [works, setWorks] = useState<Work[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -42,7 +43,8 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
 
     try {
       const params = new URLSearchParams();
-      params.append("limit", "30");
+      // 预览模式下减少拉取数量，避免一次加载过多
+      params.append("limit", preview ? "16" : "30");
       if (nextCursor) {
         params.append("cursor", nextCursor);
       }
@@ -76,7 +78,7 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
       isLoadingRef.current = false;
       setLoading(false);
     }
-  }, []);
+  }, [preview]);
 
   // 添加新作品到画廊顶部 - 保留以供将来使用
   // const addNewWork = useCallback((newWork: Work) => {
@@ -94,6 +96,9 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
 
   // 无限滚动 - 修复滚动检测逻辑
   useEffect(() => {
+    // 预览模式不启用无限滚动
+    if (preview) return;
+
     // 如果没有更多数据，不监听滚动
     if (!hasMore) {
       console.log("No more data, not listening to scroll");
@@ -137,7 +142,7 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
       clearTimeout(timeoutId);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [hasMore, cursor, fetchWorks]);
+  }, [hasMore, cursor, fetchWorks, preview]);
 
   // 注释掉，等需要时再实现
   // useEffect(() => {
@@ -150,40 +155,56 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
     return null;
   }
 
+  // 预览模式仅展示前4个，并做居中布局
+  const displayWorks = preview ? works.slice(0, 4) : works;
+
   return (
-    <section id={section.name} className="py-16">
+    <section id={section.name} className={preview ? "pt-2 pb-6 md:pb-8" : "py-16"}>
       <div className="container">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{section.title}</h2>
-        
-        </div>
-
-        {/* Works Grid */}
-        {works.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {works.map((work) => (
-              <WorkCard key={work.uuid} work={work} />
-            ))}
+        {!preview && (
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">{section.title}</h2>
           </div>
+        )}
+
+        {/* Works: 预览 = 水平滚动条；完整 = 网格 */}
+        {displayWorks.length > 0 ? (
+          preview ? (
+            <div className="flex justify-center gap-4 md:gap-6">
+              {displayWorks.map((work) => (
+                <div key={work.uuid} className="w-56 sm:w-64 md:w-72">
+                  <WorkCard work={work} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {displayWorks.map((work) => (
+                <WorkCard key={work.uuid} work={work} />
+              ))}
+            </div>
+          )
         ) : !loading ? (
           /* Empty State */
-          <div className="text-center py-20">
-            <div className="text-7xl mb-4 opacity-80">🎨</div>
-            <h3 className="text-xl font-semibold mb-2">
-              No pixel art yet
-            </h3>
-            <p className="text-muted-foreground text-sm">
-              Try entering some emojis above to generate pixel art!
-            </p>
-            <p className="text-muted-foreground text-xs mt-2">
-              Examples: 😂 🍦 👀 🏳️‍🌈 🔥
-            </p>
+          <div className={preview ? "py-6" : "text-center py-20"}>
+            {!preview && (
+              <>
+                <div className="text-7xl mb-4 opacity-80">🎨</div>
+                <h3 className="text-xl font-semibold mb-2">No pixel art yet</h3>
+                <p className="text-muted-foreground text-sm">
+                  Try entering some emojis above to generate pixel art!
+                </p>
+                <p className="text-muted-foreground text-xs mt-2">
+                  Examples: 😂 🍦 👀 🏳️‍🌈 🔥
+                </p>
+              </>
+            )}
           </div>
         ) : null}
 
         {/* Loading Indicator */}
-        {loading && (
+        {loading && !preview && (
           <div className="text-center py-8">
             <div className="inline-flex items-center gap-2 text-muted-foreground">
               <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24">
@@ -208,11 +229,9 @@ export default function PixelGallery({ section }: PixelGalleryProps) {
         )}
 
         {/* End of Gallery */}
-        {!hasMore && works.length > 0 && (
+        {!preview && !hasMore && works.length > 0 && (
           <div className="text-center py-8">
-            <p className="text-muted-foreground text-sm">
-              ✨ All pixel art loaded
-            </p>
+            <p className="text-muted-foreground text-sm">✨ All pixel art loaded</p>
           </div>
         )}
       </div>

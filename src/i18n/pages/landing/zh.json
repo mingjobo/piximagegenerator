@@ -11,7 +11,16 @@
       "url": "/"
     },
     "nav": {
-      "items": []
+      "items": [
+        {
+          "title": "定价",
+          "url": "/pricing"
+        },
+        {
+          "title": "博客",
+          "url": "/posts"
+        }
+      ]
     },
     "buttons": [],
     "show_sign": true,
