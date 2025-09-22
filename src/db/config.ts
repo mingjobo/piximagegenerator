@@ -13,4 +13,5 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DATABASE_URL!,
   },
+  schemaFilter: ["pixelart"], // 指定使用 pixelart schema
 });
