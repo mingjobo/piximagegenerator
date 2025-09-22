@@ -132,5 +132,13 @@
     "contact_tip": "其他联系方式",
     "rating_tip": "您对 PixelArt 的看法如何？",
     "placeholder": "在这里留下您的反馈..."
+  },
+  "gallery": {
+    "loading": "加载中...",
+    "load_more": "加载更多（+{count}）",
+    "all_loaded": "已加载全部",
+    "update_hint": "发现新内容，将在你停止生成后自动更新",
+    "generate_fail": "生成失败，请重试",
+    "loading_pixel_art": "正在加载像素作品..."
   }
 }

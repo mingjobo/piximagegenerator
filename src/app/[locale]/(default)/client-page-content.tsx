@@ -25,7 +25,7 @@ export default function ClientPageContent({ page }: ClientPageContentProps) {
           compact
         />
       )}
-      {page.gallery && <PixelGallery section={page.gallery} preview />}
+      {page.gallery && <PixelGallery section={page.gallery} />}
     </>
   );
 }

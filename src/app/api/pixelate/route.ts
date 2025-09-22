@@ -3,8 +3,7 @@ import { respData, respErr } from "@/lib/resp";
 import { apicore } from "@/aisdk/apicore";
 import { newStorage } from "@/lib/storage";
 import { getUuid } from "@/lib/hash";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
+import { auth } from "@/auth";
 import { db } from "@/db";
 import { works } from "@/db/schema";
 import { shouldUseMockData, createMockWork, generateMockPixelArtUrl } from "@/lib/mock-data";
@@ -17,7 +16,7 @@ function buildPixelPrompt(emoji: string): string {
 export async function POST(req: Request) {
   try {
     // 1. 尝试获取用户会话（如果认证启用）
-    const session = await getServerSession(authOptions).catch(() => null);
+    const session = await auth().catch(() => null);
     const userUuid = session?.user?.uuid || "mock-user-1";
 
     // 2. 解析请求

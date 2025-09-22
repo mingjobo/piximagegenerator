@@ -3,10 +3,11 @@ import { newStorage } from "@/lib/storage";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    const path = params.path.join("/");
+    const { path: pathSegments } = await params;
+    const path = pathSegments.join("/");
 
     // 构建 R2 的内部访问 URL
     const storage = newStorage();

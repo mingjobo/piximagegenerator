@@ -39,6 +39,10 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
     }
 
     setIsGenerating(true);
+    try {
+      // 广播：开始生成（占位卡片）
+      window.dispatchEvent(new CustomEvent("pixelate:start", { detail: { emoji: emoji.trim() } }));
+    } catch {}
 
     try {
       const response = await fetch("/api/pixelate", {
@@ -57,7 +61,7 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
         throw new Error(result.message || "Failed to generate pixel art");
       }
 
-      if (result.success && result.data) {
+      if (result.code === 0 && result.data) {
         // 清空输入框
         setEmoji("");
 
@@ -65,6 +69,11 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
         if (onWorkCreated) {
           onWorkCreated(result.data);
         }
+
+        try {
+          // 广播：生成成功（占位转正式，续期置顶）
+          window.dispatchEvent(new CustomEvent("pixelate:success", { detail: result.data }));
+        } catch {}
       } else {
         throw new Error(result.message || "Failed to generate pixel art");
       }
@@ -72,6 +81,10 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
     } catch (error: any) {
       console.error("Failed to generate pixel art:", error);
       alert(error.message || "Failed to pixelate. Try again.");
+      try {
+        // 广播：生成失败（移除占位）
+        window.dispatchEvent(new CustomEvent("pixelate:fail", { detail: { message: (error as any)?.message } }));
+      } catch {}
     } finally {
       setIsGenerating(false);
     }

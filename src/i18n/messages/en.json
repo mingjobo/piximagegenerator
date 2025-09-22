@@ -132,5 +132,13 @@
     "contact_tip": "Other ways to contact us",
     "rating_tip": "How do you feel about PixelArt?",
     "placeholder": "Leave your words here..."
+  },
+  "gallery": {
+    "loading": "Loading...",
+    "load_more": "Load more (+{count})",
+    "all_loaded": "All loaded",
+    "update_hint": "New content found, will auto‑refresh after you stop generating",
+    "generate_fail": "Generation failed, please try again",
+    "loading_pixel_art": "Loading pixel art..."
   }
 }
