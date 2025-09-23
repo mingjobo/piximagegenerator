@@ -87,7 +87,8 @@ export async function POST(req: Request) {
         contentType: "image/png",
         disposition: "inline",
       });
-      imageUrl = uploadResult.url || uploadResult.key;
+      // 统一走本服务的签名代理，避免直连 R2 公网域名的网络不稳定
+      imageUrl = `/api/image/${key}`;
     } catch (uploadErr) {
       console.error("Failed to upload image:", uploadErr);
       return respErr("Failed to save image");

@@ -168,7 +168,8 @@ async function seedExampleWorks() {
 
       try {
         const uploadResult = await storage.uploadFile(imageBuffer, s3Key, "image/png");
-        imageUrl = uploadResult.url;
+        // 数据库统一保存代理 URL，保障在无法直连 r2.dev 的网络环境下也能访问
+        imageUrl = `/api/image/${s3Key}`;
         console.log(`  ✅ Uploaded: ${imageUrl}`);
       } catch (uploadError) {
         console.error(`  ❌ Failed to upload: ${uploadError}`);
