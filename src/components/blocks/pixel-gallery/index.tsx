@@ -288,7 +288,7 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
   const displayWorks = preview ? top12.slice(0, 4) : allDisplayed;
 
   return (
-    <section id={section.name} className={preview ? "pt-2 pb-6 md:pb-8" : "py-16"}>
+    <section id={section.name} className={preview ? "pt-2 pb-1 md:pb-2" : "py-8"}>
       <div className="container">
         {/* Section Header */}
         {!preview && (
@@ -371,7 +371,7 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
               >
                 {loading ? t("loading") : t("load_more", { count: 4 })}
               </button>
-            ) : displayWorks.length > 0 ? (
+            ) : displayWorks.length > 0 && !loading && hasInitialLoadRef.current ? (
               <p className="text-muted-foreground text-sm">✨ {t("all_loaded")}</p>
             ) : null}
           </div>

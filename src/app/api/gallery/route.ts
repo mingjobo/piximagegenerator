@@ -1,7 +1,7 @@
 import { respData, respErr } from "@/lib/resp";
 import { db } from "@/db";
-import { works } from "@/db/schema";
-import { desc, lt } from "drizzle-orm";
+import { works, users } from "@/db/schema";
+import { desc, lt, eq } from "drizzle-orm";
 import { shouldUseMockData, getMockWorks } from "@/lib/mock-data";
 
 export async function GET(req: Request) {
@@ -17,9 +17,23 @@ export async function GET(req: Request) {
     }
 
     // 使用真实数据库
-    // 构建查询
+    // 构建查询 - JOIN users 表获取用户信息
     const database = db();
-    let query = database.select().from(works);
+    let query = database
+      .select({
+        // Work fields
+        id: works.id,
+        uuid: works.uuid,
+        user_uuid: works.user_uuid,
+        emoji: works.emoji,
+        image_url: works.image_url,
+        created_at: works.created_at,
+        // User fields
+        user_nickname: users.nickname,
+        user_avatar_url: users.avatar_url,
+      })
+      .from(works)
+      .leftJoin(users, eq(works.user_uuid, users.uuid));
 
     // 如果有 cursor，则从该位置开始获取（倒序分页使用 lt）
     if (cursor) {
@@ -48,6 +62,9 @@ export async function GET(req: Request) {
         emoji: work.emoji,
         image_url: work.image_url,
         created_at: work.created_at,
+        // Include user information
+        user_nickname: work.user_nickname,
+        user_avatar_url: work.user_avatar_url,
       })),
       has_more: hasMore,
       next_cursor: nextCursor,

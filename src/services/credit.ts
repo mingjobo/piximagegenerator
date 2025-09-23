@@ -15,11 +15,14 @@ export enum CreditsTransType {
   OrderPay = "order_pay", // user pay for credits
   SystemAdd = "system_add", // system add credits
   Ping = "ping", // cost for ping api
+  Pixelate = "pixelate", // cost for pixelate api
+  Refund = "refund", // refund credits for failed operations
 }
 
 export enum CreditsAmount {
-  NewUserGet = 2,
+  NewUserGet = 6,
   PingCost = 1,
+  PixelateCost = 2,
 }
 
 export async function getUserCredits(user_uuid: string): Promise<UserCredits> {
@@ -95,7 +98,8 @@ export async function decreaseCredits({
       credits: 0 - credits,
       order_no: order_no,
     };
-    await insertCredit(new_credit);
+    const rec = await insertCredit(new_credit);
+    return rec;
   } catch (e) {
     console.log("decrease credits failed: ", e);
     throw e;
@@ -125,7 +129,8 @@ export async function increaseCredits({
       order_no: order_no || "",
       expired_at: expired_at ? new Date(expired_at) : null,
     };
-    await insertCredit(new_credit);
+    const rec = await insertCredit(new_credit);
+    return rec;
   } catch (e) {
     console.log("increase credits failed: ", e);
     throw e;

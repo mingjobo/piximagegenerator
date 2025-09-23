@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { works } from "@/db/schema";
 import { shouldUseMockData, createMockWork, generateMockPixelArtUrl } from "@/lib/mock-data";
+import { CreditsAmount, CreditsTransType, decreaseCredits, increaseCredits, getUserCredits } from "@/services/credit";
 
 // 构建像素艺术 prompt
 function buildPixelPrompt(emoji: string): string {
@@ -15,9 +16,12 @@ function buildPixelPrompt(emoji: string): string {
 
 export async function POST(req: Request) {
   try {
-    // 1. 尝试获取用户会话（如果认证启用）
+    // 1. 获取用户会话（必须登录才能生成/计费）
     const session = await auth().catch(() => null);
-    const userUuid = session?.user?.uuid || "mock-user-1";
+    const userUuid = session?.user?.uuid || "";
+    if (!userUuid) {
+      return respErr("no auth");
+    }
 
     // 2. 解析请求
     const { emoji } = await req.json();
@@ -46,10 +50,22 @@ export async function POST(req: Request) {
     }
 
     // 使用真实 API 和数据库
-    // 4. 构建 prompt
+    // 4. 检查积分并预扣
+    const userCredits = await getUserCredits(userUuid);
+    if (!userCredits || (userCredits.left_credits || 0) < CreditsAmount.PixelateCost) {
+      return respErr("insufficient credits");
+    }
+
+    const dec = await decreaseCredits({
+      user_uuid: userUuid,
+      trans_type: CreditsTransType.Pixelate,
+      credits: CreditsAmount.PixelateCost,
+    });
+
+    // 5. 构建 prompt
     const prompt = buildPixelPrompt(trimmedEmoji);
 
-    // 5. 调用 APICore 生成图片
+    // 6. 调用 APICore 生成图片
     const imageModel = apicore.image("gpt-4o-image");
     const { images, warnings } = await generateImage({
       model: imageModel,
@@ -64,14 +80,28 @@ export async function POST(req: Request) {
 
     if (warnings.length > 0) {
       console.log("Pixelate warnings:", warnings);
+      // 失败返还
+      await increaseCredits({
+        user_uuid: userUuid,
+        trans_type: CreditsTransType.Refund,
+        credits: CreditsAmount.PixelateCost,
+        expired_at: dec?.expired_at ? new Date(dec.expired_at as any).toISOString() : undefined,
+      });
       return respErr("Failed to pixelate. Try again.");
     }
 
     if (!images || images.length === 0) {
+      // 失败返还
+      await increaseCredits({
+        user_uuid: userUuid,
+        trans_type: CreditsTransType.Refund,
+        credits: CreditsAmount.PixelateCost,
+        expired_at: dec?.expired_at ? new Date(dec.expired_at as any).toISOString() : undefined,
+      });
       return respErr("No image generated");
     }
 
-    // 6. 上传图片到存储
+    // 7. 上传图片到存储
     const storage = newStorage();
     const workUuid = getUuid();
     const filename = `pixel_${workUuid}.png`;
@@ -91,10 +121,17 @@ export async function POST(req: Request) {
       imageUrl = `/api/image/${key}`;
     } catch (uploadErr) {
       console.error("Failed to upload image:", uploadErr);
+      // 上传失败返还
+      await increaseCredits({
+        user_uuid: userUuid,
+        trans_type: CreditsTransType.Refund,
+        credits: CreditsAmount.PixelateCost,
+        expired_at: dec?.expired_at ? new Date(dec.expired_at as any).toISOString() : undefined,
+      });
       return respErr("Failed to save image");
     }
 
-    // 7. 保存到数据库
+    // 8. 保存到数据库
     try {
       const database = db();
       const [newWork] = await database.insert(works).values({
@@ -112,6 +149,13 @@ export async function POST(req: Request) {
       });
     } catch (dbErr) {
       console.error("Failed to save work to database:", dbErr);
+      // 数据库失败返还
+      await increaseCredits({
+        user_uuid: userUuid,
+        trans_type: CreditsTransType.Refund,
+        credits: CreditsAmount.PixelateCost,
+        expired_at: dec?.expired_at ? new Date(dec.expired_at as any).toISOString() : undefined,
+      });
       return respErr("Failed to save work");
     }
 

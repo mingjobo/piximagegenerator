@@ -251,9 +251,15 @@ export default function Pricing({ pricing }: { pricing: PricingType }) {
                           className="w-full flex items-center justify-center gap-2 font-semibold"
                           disabled={isLoading}
                           onClick={() => {
-                            if (isLoading) {
+                            if (isLoading) return;
+                            // Free plan: jump to button.url (no checkout)
+                            if (!item.amount || item.product_id === "free") {
+                              if (item.button?.url) {
+                                window.location.href = item.button.url;
+                              }
                               return;
                             }
+                            // Paid plans: proceed checkout
                             handleCheckout(item);
                           }}
                         >

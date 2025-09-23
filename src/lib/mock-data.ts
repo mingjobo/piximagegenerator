@@ -9,7 +9,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-1",
     emoji: "🍦",
     image_url: "", // 空 URL 会触发 PixelPlaceholder 组件
-    created_at: new Date("2024-01-20T10:00:00")
+    created_at: new Date("2024-01-20T10:00:00"),
+    user_nickname: "PixelMaster",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=PixelMaster"
   },
   {
     id: 2,
@@ -17,7 +19,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-2",
     emoji: "😂",
     image_url: "",
-    created_at: new Date("2024-01-20T11:00:00")
+    created_at: new Date("2024-01-20T11:00:00"),
+    user_nickname: "ArtLover",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=ArtLover"
   },
   {
     id: 3,
@@ -25,7 +29,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-1",
     emoji: "🔥",
     image_url: "",
-    created_at: new Date("2024-01-20T12:00:00")
+    created_at: new Date("2024-01-20T12:00:00"),
+    user_nickname: "PixelMaster",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=PixelMaster"
   },
   {
     id: 4,
@@ -33,7 +39,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-3",
     emoji: "👀",
     image_url: "",
-    created_at: new Date("2024-01-20T13:00:00")
+    created_at: new Date("2024-01-20T13:00:00"),
+    user_nickname: "CreativeUser",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=CreativeUser"
   },
   {
     id: 5,
@@ -41,7 +49,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-2",
     emoji: "🎉",
     image_url: "",
-    created_at: new Date("2024-01-20T14:00:00")
+    created_at: new Date("2024-01-20T14:00:00"),
+    user_nickname: "ArtLover",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=ArtLover"
   },
   {
     id: 6,
@@ -49,7 +59,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-1",
     emoji: "🏳️‍🌈",
     image_url: "",
-    created_at: new Date("2024-01-20T15:00:00")
+    created_at: new Date("2024-01-20T15:00:00"),
+    user_nickname: "PixelMaster",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=PixelMaster"
   },
   {
     id: 7,
@@ -57,7 +69,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-3",
     emoji: "🤖",
     image_url: "",
-    created_at: new Date("2024-01-20T16:00:00")
+    created_at: new Date("2024-01-20T16:00:00"),
+    user_nickname: "CreativeUser",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=CreativeUser"
   },
   {
     id: 8,
@@ -65,7 +79,9 @@ let mockWorks: Work[] = [
     user_uuid: "mock-user-2",
     emoji: "💎",
     image_url: "",
-    created_at: new Date("2024-01-20T17:00:00")
+    created_at: new Date("2024-01-20T17:00:00"),
+    user_nickname: "ArtLover",
+    user_avatar_url: "https://api.dicebear.com/7.x/pixel-art/svg?seed=ArtLover"
   }
 ];
 
@@ -127,7 +143,9 @@ export async function createMockWork(
     user_uuid: userUuid,
     emoji,
     image_url: imageUrl,
-    created_at: new Date()
+    created_at: new Date(),
+    user_nickname: "NewUser", // 默认用户名
+    user_avatar_url: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${userUuid}` // 默认头像
   };
 
   // 添加到内存存储
