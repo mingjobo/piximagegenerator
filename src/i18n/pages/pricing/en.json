@@ -56,7 +56,7 @@
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
-        "product_id": "pro-monthly",
+        "product_id": "pro",
         "product_name": "PixelArt Pro Monthly",
         "credits": 600,
         "valid_months": 1
@@ -84,7 +84,7 @@
           "url": "/#pricing",
           "icon": "RiFlashlightFill"
         },
-        "product_id": "plus-monthly",
+        "product_id": "plus",
         "product_name": "PixelArt Plus Monthly",
         "credits": 1500,
         "valid_months": 1

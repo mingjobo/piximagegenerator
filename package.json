@@ -10,6 +10,7 @@
     "start": "NODE_NO_WARNINGS=1 next start",
     "lint": "next lint",
     "analyze": "ANALYZE=true pnpm build",
+    "claude": "pnpm dlx @anthropic-ai/claude-code@latest",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
