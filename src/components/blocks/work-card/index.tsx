@@ -3,8 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Download } from "lucide-react";
 import PixelPlaceholder from "./pixel-placeholder";
 import { formatRelativeTime } from "@/lib/time-format";
+import { toast } from "sonner";
+import { useAppContext } from "@/contexts/app";
 
 export interface Work {
   id: number;
@@ -24,11 +27,64 @@ interface WorkCardProps {
 
 export default function WorkCard({ work }: WorkCardProps) {
   const t = useTranslations("gallery");
+  const { user, setShowSignModal } = useAppContext();
   const [imageError, setImageError] = useState(false);
   const [fallbackSrc, setFallbackSrc] = useState<string | null>(null);
+  const [downloading, setDownloading] = useState(false);
 
   // 检测是否为生成中状态
   const isGenerating = work.uuid.startsWith("generating-");
+
+  const handleDownload = async () => {
+    if (!work.image_url || isGenerating) return;
+
+    if (!user) {
+      setShowSignModal(true);
+      return;
+    }
+
+    setDownloading(true);
+    try {
+      const response = await fetch("/api/download-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image_url: work.image_url,
+          emoji: work.emoji,
+        }),
+      });
+
+      if (response.status === 401) {
+        setShowSignModal(true);
+        return;
+      }
+
+      if (!response.ok) {
+        const error = await response.json();
+        toast.error(error.message || "Download failed");
+        return;
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `pixelart_${work.emoji}_${work.uuid}.png`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      toast.success(t("download_success"));
+    } catch (error) {
+      console.error("Download failed:", error);
+      toast.error(t("download_failed"));
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <div className={`group relative bg-white rounded-xl shadow-sm border transition-all duration-200 overflow-hidden ${
@@ -83,15 +139,32 @@ export default function WorkCard({ work }: WorkCardProps) {
           </div>
         </div>
 
-        {/* 生成中徽章 - 右上角 */}
-        {isGenerating && (
-          <div className="absolute top-3 right-3">
+        {/* Action buttons - 右上角 */}
+        <div className="absolute top-3 right-3 flex items-center gap-2">
+          {/* Download button - 只在有图片且非生成中时显示 */}
+          {!isGenerating && work.image_url && (
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="bg-white/90 backdrop-blur-sm text-gray-700 p-2 rounded-full shadow-sm hover:bg-white hover:shadow-md transition-all duration-200 group/btn"
+              title={t("download")}
+            >
+              {downloading ? (
+                <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+              ) : (
+                <Download className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+              )}
+            </button>
+          )}
+
+          {/* 生成中徽章 */}
+          {isGenerating && (
             <div className="bg-purple-500 text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm flex items-center gap-1">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
               AI
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* User Information Section */}

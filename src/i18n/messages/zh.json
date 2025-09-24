@@ -141,6 +141,9 @@
     "generate_fail": "生成失败，请重试",
     "loading_pixel_art": "正在加载像素作品...",
     "created_at": "创建于 {time}",
-    "anonymous_user": "匿名用户"
+    "anonymous_user": "匿名用户",
+    "download": "下载",
+    "download_success": "图片下载成功",
+    "download_failed": "下载失败"
   }
 }

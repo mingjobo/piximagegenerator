@@ -141,6 +141,9 @@
     "generate_fail": "Generation failed, please try again",
     "loading_pixel_art": "Loading pixel art...",
     "created_at": "Created {time}",
-    "anonymous_user": "Anonymous User"
+    "anonymous_user": "Anonymous User",
+    "download": "Download",
+    "download_success": "Image downloaded successfully",
+    "download_failed": "Download failed"
   }
 }
