@@ -27,8 +27,15 @@ export default function WorkCard({ work }: WorkCardProps) {
   const [imageError, setImageError] = useState(false);
   const [fallbackSrc, setFallbackSrc] = useState<string | null>(null);
 
+  // 检测是否为生成中状态
+  const isGenerating = work.uuid.startsWith("generating-");
+
   return (
-    <div className="group relative bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+    <div className={`group relative bg-white rounded-xl shadow-sm border transition-all duration-200 overflow-hidden ${
+      isGenerating
+        ? "border-purple-200 ring-2 ring-purple-100 hover:shadow-lg" // 生成中：紫色边框和环状光晕
+        : "border-gray-200 hover:shadow-md hover:-translate-y-0.5"    // 正常状态
+    }`}>
       {/* Main Image Area - 正方形容器 - 浅灰色背景 */}
       <div className="relative aspect-square bg-gray-50">
         {(work.image_url || fallbackSrc) && !imageError ? (
@@ -75,6 +82,16 @@ export default function WorkCard({ work }: WorkCardProps) {
             <span className="text-2xl">{work.emoji}</span>
           </div>
         </div>
+
+        {/* 生成中徽章 - 右上角 */}
+        {isGenerating && (
+          <div className="absolute top-3 right-3">
+            <div className="bg-purple-500 text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm flex items-center gap-1">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              AI
+            </div>
+          </div>
+        )}
       </div>
 
       {/* User Information Section */}

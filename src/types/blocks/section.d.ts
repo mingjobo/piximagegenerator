@@ -22,4 +22,5 @@ export interface Section {
   image?: Image;
   buttons?: Button[];
   items?: SectionItem[];
+  tip?: string;
 }

@@ -41,7 +41,17 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
     setIsGenerating(true);
     try {
       // 广播：开始生成（占位卡片）
-      window.dispatchEvent(new CustomEvent("pixelate:start", { detail: { emoji: emoji.trim() } }));
+      window.dispatchEvent(new CustomEvent("pixelate:start", {
+        detail: {
+          emoji: emoji.trim(),
+          user: {
+            id: session.user?.id || "",
+            name: session.user?.name || "",
+            image: session.user?.image || "",
+            email: session.user?.email || ""
+          }
+        }
+      }));
     } catch {}
 
     try {

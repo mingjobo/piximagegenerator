@@ -210,13 +210,17 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
     const onStart = (e: Event) => {
       const detail = (e as CustomEvent).detail || {};
       const emoji = detail.emoji || "✨";
+      const user = detail.user || {};
       const placeholder: Work = {
         id: 0,
-        uuid: `pending-${Date.now()}`,
-        user_uuid: "",
+        uuid: `generating-${Date.now()}`, // 使用 generating- 前缀标识正在生成状态
+        user_uuid: user.id || "",
         emoji,
         image_url: "", // 触发像素占位图
         created_at: new Date().toISOString(),
+        // 添加用户信息
+        user_nickname: user.name || "Guest",
+        user_avatar_url: user.image || "",
       };
       const nextPinned = [placeholder, ...pinned];
       const until = Date.now() + 3 * 60 * 1000; // 3分钟
@@ -225,7 +229,7 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
 
     const onSuccess = (e: Event) => {
       const data = (e as CustomEvent).detail || {};
-      // 占位转正式：以 uuid 匹配（占位是 pending- 前缀，不同 id），插到 pinned 顶部
+      // 占位转正式：以 uuid 匹配（占位是 generating- 前缀，不同 id），插到 pinned 顶部
       const confirmed: Work = {
         id: (data.id as number) || -1,
         uuid: data.uuid,
@@ -234,8 +238,8 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
         image_url: data.image_url || "",
         created_at: data.created_at || new Date().toISOString(),
       };
-      // 移除最近的一个占位（pending- 前缀），再插入确认项
-      const remaining = pinned.filter((w) => !w.uuid.startsWith("pending-"));
+      // 移除最近的一个占位（generating- 前缀），再插入确认项
+      const remaining = pinned.filter((w) => !w.uuid.startsWith("generating-"));
       const next = [confirmed, ...remaining];
       const until = Date.now() + 3 * 60 * 1000;
       persistPinned(next, until);
@@ -243,7 +247,7 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
 
     const onFail = (_e: Event) => {
       // 删除最近的占位，并提示一次错误
-      const idx = pinned.findIndex((w) => w.uuid.startsWith("pending-"));
+      const idx = pinned.findIndex((w) => w.uuid.startsWith("generating-"));
       let next = pinned;
       if (idx !== -1) {
         next = [...pinned.slice(0, idx), ...pinned.slice(idx + 1)];

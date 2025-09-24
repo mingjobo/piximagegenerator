@@ -19,7 +19,9 @@ export async function GET(req: Request) {
     // 使用真实数据库
     // 构建查询 - JOIN users 表获取用户信息
     const database = db();
-    let query = database
+
+    // 构建基础查询
+    let baseQuery = database
       .select({
         // Work fields
         id: works.id,
@@ -33,15 +35,16 @@ export async function GET(req: Request) {
         user_avatar_url: users.avatar_url,
       })
       .from(works)
-      .leftJoin(users, eq(works.user_uuid, users.uuid));
+      .leftJoin(users, eq(works.user_uuid, users.uuid))
+      .$dynamic();
 
     // 如果有 cursor，则从该位置开始获取（倒序分页使用 lt）
     if (cursor) {
-      query = query.where(lt(works.id, parseInt(cursor, 10)));
+      baseQuery = baseQuery.where(lt(works.id, parseInt(cursor, 10)));
     }
 
     // 按创建时间倒序，限制数量
-    const results = await query
+    const results = await baseQuery
       .orderBy(desc(works.created_at))
       .limit(limit + 1); // 多取一条用于判断是否还有更多
 

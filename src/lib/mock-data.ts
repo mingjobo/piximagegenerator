@@ -104,7 +104,7 @@ export async function getMockWorks(cursor?: string, limit: number = 30): Promise
 
   // 按创建时间倒序排序
   const sortedWorks = [...mockWorks].sort((a, b) =>
-    b.created_at.getTime() - a.created_at.getTime()
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
 
   // 处理分页

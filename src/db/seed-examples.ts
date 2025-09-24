@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { works } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { newStorage } from "@/lib/storage";
 import { getUuid } from "@/lib/hash";
 import * as fs from "fs";
@@ -27,7 +28,7 @@ async function seedExampleWorks() {
     const existingExamples = await database
       .select()
       .from(works)
-      .where(works.user_uuid.eq(EXAMPLE_USER_UUID));
+      .where(eq(works.user_uuid, EXAMPLE_USER_UUID));
 
     if (existingExamples.length > 0) {
       console.log(`⚠️  Found ${existingExamples.length} existing examples in database.`);
@@ -37,7 +38,7 @@ async function seedExampleWorks() {
         console.log("🗑️  Deleting existing examples...");
         await database
           .delete(works)
-          .where(works.user_uuid.eq(EXAMPLE_USER_UUID));
+          .where(eq(works.user_uuid, EXAMPLE_USER_UUID));
         console.log("✅ Existing examples deleted");
       } else {
         console.log("❌ Seeding cancelled");
