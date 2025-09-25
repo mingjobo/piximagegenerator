@@ -1,5 +1,5 @@
 // 简单的功能测试脚本
-console.log("🧪 PX-EMOJI 功能测试");
+console.log("🧪 PIXELART 功能测试");
 
 // 测试 1: Emoji 验证逻辑
 function testEmojiValidation() {

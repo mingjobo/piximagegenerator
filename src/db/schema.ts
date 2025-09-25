@@ -147,7 +147,7 @@ export const feedbacks = pixelartSchema.table("feedbacks", {
   rating: integer(),
 });
 
-// Works table for PX-EMOJI - 在 pixelart schema 下创建
+// Works table for PIXELART - 在 pixelart schema 下创建
 export const works = pixelartSchema.table("works", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   uuid: varchar({ length: 255 }).notNull().unique(),

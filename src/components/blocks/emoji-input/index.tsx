@@ -132,7 +132,7 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
             <div className="flex items-center gap-3 md:gap-4">
               <Input
                 type="text"
-                placeholder="Enter an emoji here… Examples: 😂 🍦 👀 🏳️‍🌈"
+                placeholder="Examples: 😂 🍦 👀 🏳️‍🌈"
                 value={emoji}
                 onChange={(e) => setEmoji(e.target.value)}
                 onKeyPress={handleKeyPress}

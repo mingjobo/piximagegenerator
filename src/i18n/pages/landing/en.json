@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "PX-EMOJI",
+      "title": "PIXELART",
       "logo": {
         "src": "/logo.png",
-        "alt": "PX-EMOJI"
+        "alt": "PIXELART"
       },
       "url": "/"
     },
@@ -36,27 +36,125 @@
   },
   "hero": {
     "name": "hero",
-    "title": "Turn Any Emoji Into Pixel Art",
-    "description": "Transform your favorite emojis into retro 8-bit pixel art instantly. Just enter an emoji and watch the magic happen.",
-    "tip": "✨ Sign in to save your creations and view them in the gallery"
+    "title": "Pick an emoji, get pixel art",
+    "description": "Turn your keyboard emoji into pixel art; we credit you and timestamp it in the global keyboard‑emoji archive.",
+    "tip": "Sign in to generate and join the live feed"
   },
   "gallery": {
     "name": "gallery",
-    "title": "Pixel Art Gallery",
-    "description": "Discover amazing pixel art created by our community. Each piece is generated from a single emoji."
+    "title": "Emoji Live Feed",
+    "description": "New emoji pixel art goes to the front. Generate now to claim the top spot."
+  },
+  "usage": {
+    "name": "usage",
+    "title": "Get started in 30s",
+    "description": "Browse → Sign in → Type → Generate & share pixel art",
+    "items": [
+      {
+        "title": "Browse the live feed",
+        "description": "See the latest emoji pixel art"
+      },
+      {
+        "title": "Sign in",
+        "description": "Required to generate and appear in the feed"
+      },
+      {
+        "title": "Paste or type an emoji (from your keyboard)",
+        "description": "Join the global emoji collection. Each emoji you enter becomes pixel art with source and time — a live record of symbols."
+      },
+      {
+        "title": "Generate & share",
+        "description": "Your emoji pixel art jumps to the front; download and share"
+      }
+    ]
+  },
+  "feature": {
+    "name": "feature",
+    "title": "Built for emoji to pixel art",
+    "description": "Creation, exposure, and usability—focused on emoji",
+    "items": [
+      {
+        "icon": "RiGlobalLine",
+        "title": "Live top placement",
+        "description": "Every emoji pixel art generation appears at the very front"
+      },
+      {
+        "icon": "RiArtboard2Line",
+        "title": "Global collection",
+        "description": "Collect emojis from iOS/Android/Windows/macOS and regional keyboards, archived as pixel art with searchable provenance."
+      },
+      {
+        "icon": "RiTeamLine",
+        "title": "Commercial use",
+        "description": "Personal and commercial use allowed (see terms)"
+      },
+      {
+        "icon": "RiVipCrownLine",
+        "title": "Credits-based",
+        "description": "Spend credits to generate; upgrade or buy packs"
+      }
+    ]
+  },
+  "faq": {
+    "name": "faq",
+    "title": "FAQ",
+    "description": "Sign-in, feed, licensing, and credits",
+    "items": [
+      {
+        "title": "Do I need to sign in?",
+        "description": "Yes. Sign in to generate and appear in the Emoji Live Feed."
+      },
+      {
+        "title": "How do I get to the top?",
+        "description": "Every generation jumps to the front; position shifts as new works arrive."
+      },
+      {
+        "title": "Can I use creations commercially?",
+        "description": "Yes. Personal and commercial use allowed; see Terms for details."
+      },
+      {
+        "title": "Are creations public by default?",
+        "description": "Yes, public in the feed; hide/delete isn’t available yet."
+      },
+      {
+        "title": "How do credits work?",
+        "description": "Each generation spends credits; upgrade or buy credit packs for more."
+      },
+      {
+        "title": "How do we collect emojis from all keyboards?",
+        "description": "We run a global emoji collection: convert emojis from iOS/Android/Windows/macOS and regional keyboards into pixel art, recording source and time for a searchable, traceable archive."
+      }
+    ]
+  },
+  "cta": {
+    "name": "cta",
+    "title": "Generate your emoji pixel art now",
+    "description": "Sign in, pick a rare emoji, and claim the top spot.",
+    "buttons": [
+      {
+        "title": "Sign in and generate",
+        "url": "#hero",
+        "variant": "default"
+      },
+      {
+        "title": "View pricing",
+        "url": "/pricing",
+        "variant": "outline"
+      }
+    ]
   },
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "PX-EMOJI",
-      "description": "Transform your favorite emojis into retro 8-bit pixel art instantly.",
+      "title": "PIXELART",
+      "description": "Turn emoji into pixel art. Sign in to generate and appear in the Emoji Live Feed; personal and commercial use allowed. Join the global emoji collection with source/time recorded.",
       "logo": {
         "src": "/logo.png",
-        "alt": "PX-EMOJI"
+        "alt": "PIXELART"
       },
       "url": "/"
     },
-    "copyright": "© 2025 • PX-EMOJI All rights reserved.",
+    "copyright": "© 2025 • PIXELART All rights reserved.",
     "nav": {
       "items": []
     },

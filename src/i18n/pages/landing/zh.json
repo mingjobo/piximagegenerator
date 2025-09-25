@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "PX-EMOJI",
+      "title": "PIXELART",
       "logo": {
         "src": "/logo.png",
-        "alt": "PX-EMOJI"
+        "alt": "PIXELART"
       },
       "url": "/"
     },
@@ -36,27 +36,125 @@
   },
   "hero": {
     "name": "hero",
-    "title": "把任意 Emoji 变成像素艺术",
-    "description": "把你喜欢的表情符号瞬间转换成复古 8 位像素艺术。只需输入一个 emoji，见证魔法的发生。",
-    "tip": "✨ 登录后保存你的作品并在画廊中查看"
+    "title": "从输入法挑一个 Emoji，秒变像素图",
+    "description": "将键盘里的 Emoji 化为 pixel art；我们为你署名并记录时间，收进全球输入法 Emoji 档案。",
+    "tip": "登录后生成并进入 Emoji 实时广场"
   },
   "gallery": {
     "name": "gallery",
-    "title": "像素艺术画廊",
-    "description": "发现我们社区创造的精彩像素艺术。每一幅作品都由单个 emoji 生成。"
+    "title": "Emoji 实时广场",
+    "description": "最新的 emoji pixel art 即时置顶。现在生成，抢占首页位置。"
+  },
+  "usage": {
+    "name": "usage",
+    "title": "30 秒上手",
+    "description": "浏览 → 登录 → 输入 → 生成与分享 pixel art",
+    "items": [
+      {
+        "title": "浏览实时广场",
+        "description": "看看刚刚生成的 emoji pixel art"
+      },
+      {
+        "title": "登录账户",
+        "description": "登录后才能生成并进入广场"
+      },
+      {
+        "title": "输入/粘贴 Emoji（来自你的输入法）",
+        "description": "加入“全球输入法 emoji 采集计划”。你输入的每一枚 emoji 都会生成对应的 pixel art，并标记来源与时间，成为实时的文明符号记录。"
+      },
+      {
+        "title": "生成与分享",
+        "description": "作品即时置顶，分享你的 emoji pixel art"
+      }
+    ]
+  },
+  "feature": {
+    "name": "feature",
+    "title": "为 Emoji 而生的 pixel art 生成",
+    "description": "聚焦 emoji pixel art 的创作、曝光与可用性",
+    "items": [
+      {
+        "icon": "RiGlobalLine",
+        "title": "实时置顶",
+        "description": "每次生成的 emoji pixel art 都会出现在首页最前"
+      },
+      {
+        "icon": "RiArtboard2Line",
+        "title": "全球采集计划",
+        "description": "收集来自 iOS/Android/Windows/macOS 及各地区输入法的 emoji，以 pixel art 形式入册、可检索、可追溯。"
+      },
+      {
+        "icon": "RiTeamLine",
+        "title": "商用许可",
+        "description": "生成的 pixel art 可个人与商业使用（遵循条款）"
+      },
+      {
+        "icon": "RiVipCrownLine",
+        "title": "积分机制",
+        "description": "按积分生成 emoji pixel art；可升级或加购积分获得更多额度"
+      }
+    ]
+  },
+  "faq": {
+    "name": "faq",
+    "title": "常见问题",
+    "description": "关于登录、广场、授权与积分",
+    "items": [
+      {
+        "title": "必须登录才能生成吗？",
+        "description": "是。登录后才能生成 emoji pixel art，并出现在 Emoji 实时广场。"
+      },
+      {
+        "title": "如何出现在首页最前？",
+        "description": "每次生成都会把你的 emoji pixel art 放到广场最前；随后会随全站更新后移。"
+      },
+      {
+        "title": "生成的 pixel art 可以商用吗？",
+        "description": "可以。支持个人与商业使用；具体范围以服务条款为准。"
+      },
+      {
+        "title": "我的作品默认是公开的吗？",
+        "description": "是。当前默认公开展示到实时广场；暂不支持隐藏或删除。"
+      },
+      {
+        "title": "积分如何使用？",
+        "description": "每次生成消耗积分；你可以在定价页升级或购买积分包获得更多额度。"
+      },
+      {
+        "title": "我们如何收集全球输入法的 Emoji？",
+        "description": "进行“全球输入法 emoji 采集计划”：把来自 iOS/安卓/Windows/macOS 及各地区输入法的 emoji 转为 pixel art，并标记来源与时间，形成可检索、可追溯的文明符号记录。"
+      }
+    ]
+  },
+  "cta": {
+    "name": "cta",
+    "title": "现在就生成你的 Emoji pixel art",
+    "description": "登录，挑一个稀有 Emoji，登上首页最前。",
+    "buttons": [
+      {
+        "title": "登录并开始生成",
+        "url": "#hero",
+        "variant": "default"
+      },
+      {
+        "title": "查看价格",
+        "url": "/pricing",
+        "variant": "outline"
+      }
+    ]
   },
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "PX-EMOJI",
-      "description": "把你喜欢的表情符号瞬间转换成复古 8 位像素艺术。",
+      "title": "PIXELART",
+      "description": "把 Emoji 变成 pixel art。登录后生成并进入 Emoji 实时广场；可个人与商业使用；参与全球输入法 emoji 采集计划，记录来源与时间。",
       "logo": {
         "src": "/logo.png",
-        "alt": "PX-EMOJI"
+        "alt": "PIXELART"
       },
       "url": "/"
     },
-    "copyright": "© 2025 • PX-EMOJI 版权所有。",
+    "copyright": "© 2025 • PIXELART 版权所有。",
     "nav": {
       "items": []
     },

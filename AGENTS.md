@@ -27,7 +27,7 @@
 ## Testing Guidelines
 - No formal test runner configured. For now: focus on lint‑clean code and manual checks.
 - Optional: colocate tests as `*.test.ts(x)` near sources; use Vitest/Playwright if added.
-- Quick sanity: `node test-px-emoji.js` exercises the emoji pipeline.
+- Quick sanity: `node test-PIXELART.js` exercises the emoji pipeline.
 
 ## Commit & Pull Request Guidelines
 - Commits: follow Conventional Commits (e.g., `feat: ...`, `fix: ...`, `chore: ...`).

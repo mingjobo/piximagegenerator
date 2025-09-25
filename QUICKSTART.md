@@ -1,4 +1,4 @@
-# 🚀 PX-EMOJI 快速启动指南
+# 🚀 PIXELART 快速启动指南
 
 ## 立即运行（3 分钟）
 
@@ -66,4 +66,4 @@ pnpm dev
 
 ## 📞 需要帮助？
 
-查看详细文档：[PX-EMOJI-SETUP.md](./PX-EMOJI-SETUP.md)
+查看详细文档：[PIXELART-SETUP.md](./PIXELART-SETUP.md)

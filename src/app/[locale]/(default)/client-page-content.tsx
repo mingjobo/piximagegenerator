@@ -2,6 +2,10 @@
 
 import EmojiInput from "@/components/blocks/emoji-input";
 import PixelGallery from "@/components/blocks/pixel-gallery";
+import Feature3 from "@/components/blocks/feature3";
+import Feature from "@/components/blocks/feature";
+import FAQ from "@/components/blocks/faq";
+import CTA from "@/components/blocks/cta";
 import { Work } from "@/components/blocks/work-card";
 
 interface ClientPageContentProps {
@@ -26,6 +30,10 @@ export default function ClientPageContent({ page }: ClientPageContentProps) {
         />
       )}
       {page.gallery && <PixelGallery section={page.gallery} />}
+      {page.usage && <Feature3 section={page.usage} />}
+      {page.feature && <Feature section={page.feature} />}
+      {page.faq && <FAQ section={page.faq} />}
+      {page.cta && <CTA section={page.cta} />}
     </>
   );
 }
