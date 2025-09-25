@@ -48,65 +48,83 @@
   "usage": {
     "name": "usage",
     "title": "Get started in 30s",
-    "description": "Browse → Sign in → Type → Generate & share pixel art",
+    "description": "Browse → Sign in → Type → Generate & share pixel art → Credit & time → Archive & index",
     "items": [
       {
         "title": "Browse the live feed",
-        "description": "See the latest emoji pixel art"
+        "description": "See the latest emoji pixel art and the pace of top placement."
       },
       {
         "title": "Sign in",
-        "description": "Required to generate and appear in the feed"
+        "description": "Use your account; your creator credit uses this identity and handles credits."
       },
       {
         "title": "Paste or type an emoji (from your keyboard)",
-        "description": "Join the global emoji collection. Each emoji you enter becomes pixel art with source and time — a live record of symbols."
+        "description": "Join the global emoji collection; every entry becomes pixel art with source and time."
       },
       {
         "title": "Generate & share",
-        "description": "Your emoji pixel art jumps to the front; download and share"
+        "description": "After generating, your work jumps to the front; download, copy link, or share."
+      },
+      {
+        "title": "Credit & time",
+        "description": "We automatically add creator credit and timestamp so your creation is properly recorded."
+      },
+      {
+        "title": "Archive & index",
+        "description": "Your work is added to the global keyboard‑emoji archive; searchable by platform, region, time, and code."
       }
     ]
   },
   "feature": {
     "name": "feature",
     "title": "Built for emoji to pixel art",
-    "description": "Creation, exposure, and usability—focused on emoji",
+    "description": "Creation, exposure, credit, and provenance—focused on emoji",
     "items": [
       {
         "icon": "RiGlobalLine",
         "title": "Live top placement",
-        "description": "Every emoji pixel art generation appears at the very front"
+        "description": "Every emoji pixel art generation appears at the very front for instant feedback."
       },
       {
         "icon": "RiArtboard2Line",
         "title": "Global collection",
-        "description": "Collect emojis from iOS/Android/Windows/macOS and regional keyboards, archived as pixel art with searchable provenance."
+        "description": "Collect emojis from iOS/Android/Windows/macOS and regional keyboards, cataloged as pixel art and continuously updated."
+      },
+      {
+        "icon": "RiTeamLine",
+        "title": "Creator credit & time",
+        "description": "Every work carries creator credit and a timestamp so attribution is clear."
+      },
+      {
+        "icon": "RiGlobalLine",
+        "title": "Searchable provenance",
+        "description": "Search by platform, region, time, and code; each record includes source and time."
       },
       {
         "icon": "RiTeamLine",
         "title": "Commercial use",
-        "description": "Personal and commercial use allowed (see terms)"
+        "description": "Personal and commercial use allowed (see terms)."
       },
       {
         "icon": "RiVipCrownLine",
         "title": "Credits-based",
-        "description": "Spend credits to generate; upgrade or buy packs"
+        "description": "Spend credits to generate; upgrade or buy packs for more."
       }
     ]
   },
   "faq": {
     "name": "faq",
     "title": "FAQ",
-    "description": "Sign-in, feed, licensing, and credits",
+    "description": "Sign‑in, feed, credit & archive, and credits",
     "items": [
       {
         "title": "Do I need to sign in?",
-        "description": "Yes. Sign in to generate and appear in the Emoji Live Feed."
+        "description": "Yes. Sign in to generate and appear in the Emoji Live Feed; your creator credit uses your account identity."
       },
       {
         "title": "How do I get to the top?",
-        "description": "Every generation jumps to the front; position shifts as new works arrive."
+        "description": "Every generation jumps to the front; positions shift as new works arrive—fair, time‑ordered placement."
       },
       {
         "title": "Can I use creations commercially?",
@@ -118,11 +136,11 @@
       },
       {
         "title": "How do credits work?",
-        "description": "Each generation spends credits; upgrade or buy credit packs for more."
+        "description": "Each generation spends credits; upgrade or buy credit packs for more, see the pricing page for details."
       },
       {
         "title": "How do we collect emojis from all keyboards?",
-        "description": "We run a global emoji collection: convert emojis from iOS/Android/Windows/macOS and regional keyboards into pixel art, recording source and time for a searchable, traceable archive."
+        "description": "We run a global emoji collection: convert emojis from iOS/Android/Windows/macOS and regional keyboards into pixel art and record source/time; entries go into a searchable, traceable archive."
       }
     ]
   },

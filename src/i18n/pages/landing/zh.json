@@ -48,65 +48,83 @@
   "usage": {
     "name": "usage",
     "title": "30 秒上手",
-    "description": "浏览 → 登录 → 输入 → 生成与分享 pixel art",
+    "description": "浏览 → 登录 → 输入 → 生成与分享 pixel art → 署名与时间 → 入档与索引",
     "items": [
       {
         "title": "浏览实时广场",
-        "description": "看看刚刚生成的 emoji pixel art"
+        "description": "看看刚刚生成的 emoji pixel art，了解上首页的节奏与风格。"
       },
       {
         "title": "登录账户",
-        "description": "登录后才能生成并进入广场"
+        "description": "使用你的账户登录；作者署名将以此账户显示，并用于积分结算。"
       },
       {
         "title": "输入/粘贴 Emoji（来自你的输入法）",
-        "description": "加入“全球输入法 emoji 采集计划”。你输入的每一枚 emoji 都会生成对应的 pixel art，并标记来源与时间，成为实时的文明符号记录。"
+        "description": "加入“全球输入法 emoji 采集计划”。你输入的每一枚 emoji 都会生成对应的 pixel art，并标注来源与时间。"
       },
       {
         "title": "生成与分享",
-        "description": "作品即时置顶，分享你的 emoji pixel art"
+        "description": "点击生成后，作品即时置顶；你可以下载、复制链接，或分享给朋友。"
+      },
+      {
+        "title": "署名与时间",
+        "description": "系统会自动为作品添加作者署名与生成时间，确保你的创作被准确记录。"
+      },
+      {
+        "title": "入档与索引",
+        "description": "作品同步进入全球输入法 Emoji 档案；可按平台/地区/时间/编码检索，形成可追溯的记录。"
       }
     ]
   },
   "feature": {
     "name": "feature",
     "title": "为 Emoji 而生的 pixel art 生成",
-    "description": "聚焦 emoji pixel art 的创作、曝光与可用性",
+    "description": "聚焦 emoji pixel art 的创作、曝光、署名与可追溯性",
     "items": [
       {
         "icon": "RiGlobalLine",
         "title": "实时置顶",
-        "description": "每次生成的 emoji pixel art 都会出现在首页最前"
+        "description": "每次生成的 emoji pixel art 都会出现在首页最前，形成可见的创作反馈。"
       },
       {
         "icon": "RiArtboard2Line",
         "title": "全球采集计划",
-        "description": "收集来自 iOS/Android/Windows/macOS 及各地区输入法的 emoji，以 pixel art 形式入册、可检索、可追溯。"
+        "description": "收集来自 iOS/Android/Windows/macOS 及各地区输入法的 emoji，以 pixel art 形式入册并持续更新。"
+      },
+      {
+        "icon": "RiTeamLine",
+        "title": "作者署名与时间",
+        "description": "作品展示明确署名并写入时间戳，让你的创作被准确归属。"
+      },
+      {
+        "icon": "RiGlobalLine",
+        "title": "可检索与可追溯",
+        "description": "按平台/地区/时间/编码进行检索，每条记录含来源与时间，方便追溯。"
       },
       {
         "icon": "RiTeamLine",
         "title": "商用许可",
-        "description": "生成的 pixel art 可个人与商业使用（遵循条款）"
+        "description": "生成的 pixel art 可个人与商业使用（遵循条款）。"
       },
       {
         "icon": "RiVipCrownLine",
         "title": "积分机制",
-        "description": "按积分生成 emoji pixel art；可升级或加购积分获得更多额度"
+        "description": "按积分生成 emoji pixel art；可升级或加购积分获得更多额度。"
       }
     ]
   },
   "faq": {
     "name": "faq",
     "title": "常见问题",
-    "description": "关于登录、广场、授权与积分",
+    "description": "关于登录、广场、署名入档与积分",
     "items": [
       {
         "title": "必须登录才能生成吗？",
-        "description": "是。登录后才能生成 emoji pixel art，并出现在 Emoji 实时广场。"
+        "description": "是。登录后才能生成 emoji pixel art，并出现在 Emoji 实时广场；作者署名将以你的账户显示。"
       },
       {
         "title": "如何出现在首页最前？",
-        "description": "每次生成都会把你的 emoji pixel art 放到广场最前；随后会随全站更新后移。"
+        "description": "每次生成都会把你的 emoji pixel art 放到广场最前；随后会随全站更新后移，保持公平的时间序。"
       },
       {
         "title": "生成的 pixel art 可以商用吗？",
@@ -118,11 +136,11 @@
       },
       {
         "title": "积分如何使用？",
-        "description": "每次生成消耗积分；你可以在定价页升级或购买积分包获得更多额度。"
+        "description": "每次生成消耗积分；你可以在定价页升级或购买积分包获得更多额度，具体以定价页为准。"
       },
       {
         "title": "我们如何收集全球输入法的 Emoji？",
-        "description": "进行“全球输入法 emoji 采集计划”：把来自 iOS/安卓/Windows/macOS 及各地区输入法的 emoji 转为 pixel art，并标记来源与时间，形成可检索、可追溯的文明符号记录。"
+        "description": "进行“全球输入法 emoji 采集计划”：把来自 iOS/安卓/Windows/macOS 及各地区输入法的 emoji 转为 pixel art，并记录来源与时间；作品将进入可检索、可追溯的文明符号档案。"
       }
     ]
   },
