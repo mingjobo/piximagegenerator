@@ -4,6 +4,9 @@
   "private": true,
   "author": "idoubi",
   "homepage": "https://PixelArt.ai",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "cross-env NODE_NO_WARNINGS=1 next dev --turbopack",
     "build": "next build",

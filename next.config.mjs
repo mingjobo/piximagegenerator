@@ -37,6 +37,3 @@ const configWithMDX = {
 };
 
 export default withBundleAnalyzer(withNextIntl(withMDX(configWithMDX)));
-
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-initOpenNextCloudflareForDev();
