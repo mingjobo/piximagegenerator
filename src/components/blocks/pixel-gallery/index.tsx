@@ -243,6 +243,11 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
       const next = [confirmed, ...remaining];
       const until = Date.now() + 3 * 60 * 1000;
       persistPinned(next, until);
+
+      // 显示感谢 toast
+      toast.success(t("contribution_thanks", { emoji: data.emoji }), {
+        duration: 3000,
+      });
     };
 
     const onFail = (_e: Event) => {

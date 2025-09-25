@@ -139,6 +139,7 @@
     "all_loaded": "All loaded",
     "update_hint": "New content found, will auto‑refresh after you stop generating",
     "generate_fail": "Generation failed, please try again",
+    "contribution_thanks": "Thank you for contributing {emoji} pixel art to our community! 🎨",
     "loading_pixel_art": "Loading pixel art...",
     "created_at": "Created {time}",
     "anonymous_user": "Anonymous User",

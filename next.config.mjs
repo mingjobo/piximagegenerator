@@ -1,6 +1,7 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import createNextIntlPlugin from "next-intl/plugin";
 import { createMDX } from "fumadocs-mdx/next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const withMDX = createMDX();
 
@@ -35,5 +36,14 @@ const configWithMDX = {
     mdxRs: true,
   },
 };
+
+// 仅在本地开发环境初始化 Cloudflare dev，避免在 Vercel 构建/运行时产生副作用
+if (process.env.NODE_ENV === "development" && process.env.VERCEL !== "1") {
+  try {
+    initOpenNextCloudflareForDev();
+  } catch (e) {
+    // 忽略本地初始化失败，确保开发不被阻塞
+  }
+}
 
 export default withBundleAnalyzer(withNextIntl(withMDX(configWithMDX)));

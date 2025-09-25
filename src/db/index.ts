@@ -1,28 +1,32 @@
-import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 // Database instance for Node.js environment
 let dbInstance: ReturnType<typeof drizzle> | null = null;
 
 export function db() {
-  const { env }: { env: any } = getCloudflareContext();
-
   // Detect if running in Cloudflare Workers environment
   const isCloudflareWorker =
     typeof globalThis !== "undefined" && "Cloudflare" in globalThis;
 
-  // Detect if set Hyperdrive
-  const isHyperdrive = "HYPERDRIVE" in env;
-
-  console.log("is cloudflare worker:", isCloudflareWorker);
-  console.log("is hyperdrive:", isHyperdrive);
-
   let databaseUrl = process.env.DATABASE_URL;
-  if (isCloudflareWorker && isHyperdrive) {
-    const hyperdrive = env.HYPERDRIVE;
-    databaseUrl = hyperdrive.connectionString;
-    console.log("using Hyperdrive connection");
+
+  if (isCloudflareWorker) {
+    const { env }: { env: any } = getCloudflareContext();
+    const isHyperdrive = env && "HYPERDRIVE" in env;
+
+    console.log("is cloudflare worker:", isCloudflareWorker);
+    console.log("is hyperdrive:", isHyperdrive);
+
+    if (isHyperdrive) {
+      const hyperdrive = env.HYPERDRIVE;
+      databaseUrl = hyperdrive.connectionString;
+      console.log("using Hyperdrive connection");
+    }
+  } else {
+    // Node.js 环境
+    // console.log("is cloudflare worker:", false);
   }
 
   if (!databaseUrl) {
