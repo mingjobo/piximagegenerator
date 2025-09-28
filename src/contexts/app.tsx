@@ -32,6 +32,19 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const [showFeedback, setShowFeedback] = useState<boolean>(false);
+  
+  const refreshCredits = async () => {
+    try {
+      if (!session || !session.user) return;
+      const resp = await fetch("/api/get-user-credits", { method: "POST" });
+      if (!resp.ok) return;
+      const { code, data } = await resp.json();
+      if (code !== 0) return;
+      setUser((prev) => (prev ? { ...prev, credits: data } : prev));
+    } catch (e) {
+      console.log("refresh credits failed");
+    }
+  };
 
   const fetchUserInfo = async function () {
     try {
@@ -121,6 +134,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         setShowSignModal,
         user,
         setUser,
+        refreshCredits,
         showFeedback,
         setShowFeedback,
       }}

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Section as SectionType } from "@/types/blocks/section";
+import { useAppContext } from "@/contexts/app";
 
 interface EmojiInputProps {
   section: SectionType;
@@ -18,6 +19,7 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
   const [isGenerating, setIsGenerating] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
+  const { refreshCredits } = useAppContext();
 
   const handleSubmit = async () => {
     // 验证输入
@@ -88,6 +90,9 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
           // 广播：生成成功（占位转正式，续期置顶）
           window.dispatchEvent(new CustomEvent("pixelate:success", { detail: result.data }));
         } catch {}
+
+        // 刷新用户积分（由后端预扣后以服务端为准）
+        try { await refreshCredits?.(); } catch {}
       } else {
         throw new Error(result.message || "Failed to generate pixel art");
       }
@@ -99,6 +104,8 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
         // 广播：生成失败（移除占位）
         window.dispatchEvent(new CustomEvent("pixelate:fail", { detail: { message: (error as any)?.message } }));
       } catch {}
+      // 失败返还积分后刷新
+      try { await refreshCredits?.(); } catch {}
     } finally {
       setIsGenerating(false);
     }

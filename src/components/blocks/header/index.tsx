@@ -32,6 +32,7 @@ import { Menu } from "lucide-react";
 import SignToggle from "@/components/sign/toggle";
 import ThemeToggle from "@/components/theme/toggle";
 import { cn } from "@/lib/utils";
+import CreditsChip from "./credits-chip";
 
 export default function Header({ header }: { header: HeaderType }) {
   if (header.disabled) {
@@ -152,6 +153,9 @@ export default function Header({ header }: { header: HeaderType }) {
           <div className="shrink-0 flex gap-2 items-center justify-end">
             {header.show_locale && <LocaleToggle />}
             {header.show_theme && <ThemeToggle />}
+
+            {/* Credits Chip */}
+            <CreditsChip />
 
             {header.buttons?.map((item, i) => {
               return (
@@ -313,6 +317,8 @@ export default function Header({ header }: { header: HeaderType }) {
                     <div className="flex-1"></div>
 
                     {header.show_theme && <ThemeToggle />}
+                    {/* Credits Chip in drawer */}
+                    <CreditsChip />
                   </div>
                 </div>
               </SheetContent>

@@ -1,8 +1,14 @@
 {
   "metadata": {
     "title": "Pixel Art 生成器｜Emoji Pixel Art｜PIXELART",
-    "description": "专注把 Emoji 秒变 pixel art。登录后生成并进入 Emoji 实时广场；支持稀有/变体/旗帜等 emoji，按积分计费，支持个人与商业使用；加入全球输入法 emoji 采集计划，记录来源与时间，形成可检索、可追溯的文明符号档案。",
+    "description": "一键将emoji变成像素艺术，加入全球emoji pixel art画廊！你知道全球所有输入法一共有多少个emoji吗？把你熟悉的emoji像素化，永久收录在我们的世界画廊 - 一起构建最完整的emoji像素艺术档案。生成后可下载用于社交媒体、游戏或任何创作。",
     "keywords": "pixel art, emoji pixel art, 像素艺术, 像素图生成, emoji 转像素, 8位像素, 实时广场, pixel art generator"
+  },
+  "header": {
+    "credits": "Credits: {count}",
+    "free_hook": "免费×3",
+    "cost_hint": "一次生成消耗 2 积分",
+    "go_pricing": "前往定价"
   },
   "user": {
     "sign_in": "登录",
