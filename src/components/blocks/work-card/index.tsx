@@ -141,8 +141,8 @@ export default function WorkCard({ work }: WorkCardProps) {
 
         {/* Action buttons - 右上角 */}
         <div className="absolute top-3 right-3 flex items-center gap-2">
-          {/* Download button - 只在有图片且非生成中时显示 */}
-          {!isGenerating && work.image_url && (
+          {/* Download button - 只在有图片且非生成中且用户已登录时显示 */}
+          {!isGenerating && work.image_url && user && (
             <button
               onClick={handleDownload}
               disabled={downloading}

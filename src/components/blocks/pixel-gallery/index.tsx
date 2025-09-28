@@ -42,7 +42,7 @@ interface GalleryResponse {
 
 export default function PixelGallery({ section, preview = false }: PixelGalleryProps) {
   const t = useTranslations("gallery");
-  const { user: appUser } = useAppContext();
+  const { user: appUser, setShowSignModal } = useAppContext();
   // 状态：置顶集合、权威 top12、page1、加载更多的额外数据
   const [pinned, setPinned] = useState<Work[]>([]);
   const [top12, setTop12] = useState<Work[]>([]);
@@ -314,9 +314,20 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
         {!preview && (
           <div className="mb-6 flex items-end justify-between">
             <h2 className="text-3xl font-bold">{section.title}</h2>
-            {updateHint && (
-              <span className="text-xs text-muted-foreground">{t("update_hint")}</span>
-            )}
+            <div className="flex items-center gap-3">
+              {/* 未登录提示 - 温和的灰色提示 */}
+              {!appUser && (
+                <button
+                  onClick={() => setShowSignModal(true)}
+                  className="bg-gray-100 text-gray-600 text-sm px-3 py-1.5 rounded-full hover:bg-gray-200 transition-colors duration-200"
+                >
+                  {t("sign_in_to_download")}
+                </button>
+              )}
+              {updateHint && (
+                <span className="text-xs text-muted-foreground">{t("update_hint")}</span>
+              )}
+            </div>
           </div>
         )}
 

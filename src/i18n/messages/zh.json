@@ -151,6 +151,7 @@
     "anonymous_user": "匿名用户",
     "download": "下载",
     "download_success": "图片下载成功",
-    "download_failed": "下载失败"
+    "download_failed": "下载失败",
+    "sign_in_to_download": "登录可下载"
   }
 }
