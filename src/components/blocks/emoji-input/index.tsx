@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Section as SectionType } from "@/types/blocks/section";
 import { useAppContext } from "@/contexts/app";
+import GraphemeSplitter from "grapheme-splitter";
+import emojiRegex from "emoji-regex";
 
 interface EmojiInputProps {
   section: SectionType;
@@ -17,13 +19,55 @@ interface EmojiInputProps {
 export default function EmojiInput({ section, onWorkCreated, compact = false }: EmojiInputProps) {
   const [emoji, setEmoji] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [validationError, setValidationError] = useState("");
   const { data: session } = useSession();
   const router = useRouter();
   const { refreshCredits } = useAppContext();
 
+  // Initialize emoji validation utilities
+  const splitter = new GraphemeSplitter();
+  const emojiPattern = emojiRegex();
+
+  // Validate emoji input
+  const validateEmoji = (input: string): { isValid: boolean; error?: string } => {
+    const trimmed = input.trim();
+
+    if (!trimmed) {
+      return { isValid: false, error: "" };
+    }
+
+    // Check if input contains only emojis
+    const withoutEmojis = trimmed.replace(emojiPattern, "");
+    if (withoutEmojis.length > 0) {
+      return { isValid: false, error: "Please enter emoji only, text is not supported" };
+    }
+
+    // Count visual characters (graphemes)
+    const graphemes = splitter.splitGraphemes(trimmed);
+    if (graphemes.length > 3) {
+      return { isValid: false, error: "Maximum 3 emojis allowed" };
+    }
+
+    // Safety check: byte length limit
+    const byteLength = new TextEncoder().encode(trimmed).length;
+    if (byteLength > 50) {
+      return { isValid: false, error: "Input too complex" };
+    }
+
+    return { isValid: true };
+  };
+
   const handleSubmit = async () => {
     // 验证输入
-    if (!emoji.trim()) {
+    const trimmed = emoji.trim();
+    if (!trimmed) {
+      return;
+    }
+
+    // Validate emoji
+    const validation = validateEmoji(trimmed);
+    if (!validation.isValid) {
+      setValidationError(validation.error || "");
       return;
     }
 
@@ -31,12 +75,6 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
     if (!session) {
       alert("Please sign in to generate pixel art");
       router.push("/auth/signin");
-      return;
-    }
-
-    // 简单验证 emoji（避免过度复杂化）
-    if (emoji.trim().length > 10) {
-      alert("Please enter one emoji only.");
       return;
     }
 
@@ -143,11 +181,14 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
             <div className="flex items-center gap-3 md:gap-4">
               <Input
                 type="text"
-                placeholder="Examples: 😂 🍦 👀 🏳️‍🌈"
+                placeholder="Enter emoji... Examples: 😊 👨‍👩‍👧‍👦 🏳️‍🌈"
                 value={emoji}
-                onChange={(e) => setEmoji(e.target.value)}
+                onChange={(e) => {
+                  setEmoji(e.target.value);
+                  setValidationError("");
+                }}
                 onKeyPress={handleKeyPress}
-                className="flex-1 text-lg h-14 px-6 text-center border-border rounded-xl shadow-sm focus:shadow-md focus:border-primary transition-all"
+                className={`flex-1 text-2xl h-14 px-6 text-center border-border rounded-xl shadow-sm focus:shadow-md focus:border-primary transition-all ${validationError ? "border-red-500" : ""}`}
                 disabled={isGenerating}
               />
 
@@ -162,8 +203,15 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
             </div>
           </div>
 
+          {/* Validation Error */}
+          {validationError && (
+            <p className="text-sm text-red-500 mt-2">
+              {validationError}
+            </p>
+          )}
+
           {/* Tip */}
-          {section.tip && (
+          {section.tip && !validationError && (
             <p className="text-sm text-muted-foreground mt-6">
               {section.tip}
             </p>

@@ -8,6 +8,39 @@ import { db } from "@/db";
 import { works } from "@/db/schema";
 import { shouldUseMockData, createMockWork, generateMockPixelArtUrl } from "@/lib/mock-data";
 import { CreditsAmount, CreditsTransType, decreaseCredits, increaseCredits, getUserCredits } from "@/services/credit";
+import GraphemeSplitter from "grapheme-splitter";
+import emojiRegex from "emoji-regex";
+
+// Validate emoji input
+function validateEmoji(input: string): { isValid: boolean; error?: string } {
+  const trimmed = input.trim();
+  const splitter = new GraphemeSplitter();
+  const emojiPattern = emojiRegex();
+
+  if (!trimmed) {
+    return { isValid: false, error: "Emoji is required" };
+  }
+
+  // Check if input contains only emojis
+  const withoutEmojis = trimmed.replace(emojiPattern, "");
+  if (withoutEmojis.length > 0) {
+    return { isValid: false, error: "Please enter emoji only, text is not supported" };
+  }
+
+  // Count visual characters (graphemes)
+  const graphemes = splitter.splitGraphemes(trimmed);
+  if (graphemes.length > 3) {
+    return { isValid: false, error: "Maximum 3 emojis allowed" };
+  }
+
+  // Safety check: byte length limit
+  const byteLength = new TextEncoder().encode(trimmed).length;
+  if (byteLength > 50) {
+    return { isValid: false, error: "Input too complex" };
+  }
+
+  return { isValid: true };
+}
 
 // 构建像素艺术 prompt
 function buildPixelPrompt(emoji: string): string {
@@ -25,14 +58,12 @@ export async function POST(req: Request) {
 
     // 2. 解析请求
     const { emoji } = await req.json();
-    if (!emoji?.trim()) {
-      return respErr("Emoji is required");
-    }
+    const trimmedEmoji = emoji?.trim() || "";
 
-    // 3. 简单的 emoji 验证
-    const trimmedEmoji = emoji.trim();
-    if (trimmedEmoji.length > 10) {
-      return respErr("Please enter one emoji only");
+    // 3. Validate emoji input
+    const validation = validateEmoji(trimmedEmoji);
+    if (!validation.isValid) {
+      return respErr(validation.error || "Invalid input");
     }
 
     // 检查是否使用 mock 数据
