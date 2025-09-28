@@ -23,6 +23,7 @@ import {
   sortByCreatedDesc,
 } from "@/lib/gallery-store";
 import { toast } from "sonner";
+import { useAppContext } from "@/contexts/app";
 
 interface PixelGalleryProps {
   section: SectionType;
@@ -41,6 +42,7 @@ interface GalleryResponse {
 
 export default function PixelGallery({ section, preview = false }: PixelGalleryProps) {
   const t = useTranslations("gallery");
+  const { user: appUser } = useAppContext();
   // 状态：置顶集合、权威 top12、page1、加载更多的额外数据
   const [pinned, setPinned] = useState<Work[]>([]);
   const [top12, setTop12] = useState<Work[]>([]);
@@ -211,16 +213,22 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
       const detail = (e as CustomEvent).detail || {};
       const emoji = detail.emoji || "✨";
       const user = detail.user || {};
+      // 统一从多种字段来源兜底：name/nickname, image/avatar_url, id/uuid
+      const displayName =
+        user.name || user.nickname || appUser?.nickname || "Guest";
+      const avatarUrl =
+        user.image || user.avatar_url || appUser?.avatar_url || "";
+      const userUuid = user.id || user.uuid || appUser?.uuid || "";
       const placeholder: Work = {
         id: 0,
         uuid: `generating-${Date.now()}`, // 使用 generating- 前缀标识正在生成状态
-        user_uuid: user.id || "",
+        user_uuid: userUuid,
         emoji,
         image_url: "", // 触发像素占位图
         created_at: new Date().toISOString(),
         // 添加用户信息
-        user_nickname: user.name || "Guest",
-        user_avatar_url: user.image || "",
+        user_nickname: displayName,
+        user_avatar_url: avatarUrl,
       };
       const nextPinned = [placeholder, ...pinned];
       const until = Date.now() + 3 * 60 * 1000; // 3分钟
@@ -237,6 +245,9 @@ export default function PixelGallery({ section, preview = false }: PixelGalleryP
         emoji: data.emoji,
         image_url: data.image_url || "",
         created_at: data.created_at || new Date().toISOString(),
+        // 立即补充昵称与头像，避免等待心跳
+        user_nickname: appUser?.nickname || undefined,
+        user_avatar_url: appUser?.avatar_url || undefined,
       };
       // 移除最近的一个占位（generating- 前缀），再插入确认项
       const remaining = pinned.filter((w) => !w.uuid.startsWith("generating-"));

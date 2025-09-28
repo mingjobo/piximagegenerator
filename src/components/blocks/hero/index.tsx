@@ -45,7 +45,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
             )}
 
             {texts && texts.length > 1 ? (
-              <h1 className="mx-auto mb-3 mt-4 max-w-6xl text-balance text-4xl font-bold lg:mb-7 lg:text-7xl">
+              <h1 className="mx-auto mb-3 mt-4 text-3xl font-bold md:text-4xl lg:mb-7 lg:text-5xl xl:text-6xl">
                 {texts[0]}
                 <span className="bg-linear-to-r from-primary via-primary to-primary bg-clip-text text-transparent">
                   {highlightText}
@@ -53,7 +53,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
                 {texts[1]}
               </h1>
             ) : (
-              <h1 className="mx-auto mb-3 mt-4 max-w-6xl text-balance text-4xl font-bold lg:mb-7 lg:text-7xl">
+              <h1 className="mx-auto mb-3 mt-4 text-3xl font-bold md:text-4xl lg:mb-7 lg:text-5xl xl:text-6xl">
                 {hero.title}
               </h1>
             )}

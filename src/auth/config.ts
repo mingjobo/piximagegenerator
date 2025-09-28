@@ -141,7 +141,14 @@ export const authOptions: NextAuthConfig = {
     },
     async session({ session, token, user }) {
       if (token && token.user && token.user) {
-        session.user = token.user;
+        // 将 token.user 映射到 session，并补充 name/image 兼容字段
+        session.user = {
+          ...(token.user as any),
+          name: (token.user as any).name || (token.user as any).nickname || undefined,
+          image: (token.user as any).image || (token.user as any).avatar_url || undefined,
+          // 非 NextAuth 标准字段，尽量提供但不强依赖
+          id: (token.user as any).id || (token.user as any).uuid,
+        } as any;
       }
       return session;
     },
@@ -163,6 +170,10 @@ export const authOptions: NextAuthConfig = {
           nickname: userInfo.nickname,
           avatar_url: userInfo.avatar_url,
           created_at: userInfo.created_at,
+          // 兼容老字段
+          id: userInfo.uuid,
+          name: userInfo.nickname,
+          image: userInfo.avatar_url,
         };
 
         return token;

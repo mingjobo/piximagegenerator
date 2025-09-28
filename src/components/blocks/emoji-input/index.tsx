@@ -45,12 +45,16 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
         detail: {
           emoji: emoji.trim(),
           user: {
-            id: session.user?.id || "",
-            name: session.user?.name || "",
-            image: session.user?.image || "",
-            email: session.user?.email || ""
-          }
-        }
+            // 兼容两套字段：会话模型提供 nickname/avatar_url/uuid
+            id: (session.user as any)?.id || session.user?.uuid || "",
+            uuid: session.user?.uuid || (session.user as any)?.id || "",
+            name: session.user?.name || (session.user as any)?.nickname || "",
+            nickname: (session.user as any)?.nickname || session.user?.name || "",
+            image: session.user?.image || (session.user as any)?.avatar_url || "",
+            avatar_url: (session.user as any)?.avatar_url || session.user?.image || "",
+            email: session.user?.email || "",
+          },
+        },
       }));
     } catch {}
 
@@ -116,14 +120,14 @@ export default function EmojiInput({ section, onWorkCreated, compact = false }: 
       className={`${compact ? "pt-20 pb-4" : "py-24"} bg-gradient-to-b from-background to-muted/20`}
     >
       <div className="container">
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
+        <div className="flex flex-col items-center text-center mx-auto">
           {/* Hero Title */}
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight mb-6">
             {section.title}
           </h1>
 
           {/* Description */}
-          <p className="text-xl text-muted-foreground mb-12 max-w-2xl">
+          <p className="text-xl text-muted-foreground mb-12 max-w-3xl">
             {section.description}
           </p>
 

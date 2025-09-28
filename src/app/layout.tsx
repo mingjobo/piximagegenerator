@@ -3,6 +3,14 @@ import "@/app/globals.css";
 import { getLocale, setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n/locale";
 import { cn } from "@/lib/utils";
+import { Comfortaa } from "next/font/google";
+
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-comfortaa",
+  display: "swap",
+});
 
 export default async function RootLayout({
   children,
@@ -23,8 +31,6 @@ export default async function RootLayout({
           <meta name="google-adsense-account" content={googleAdsenseCode} />
         )}
 
-        <link rel="icon" href="/favicon.ico" />
-
         {locales &&
           locales.map((loc) => (
             <link
@@ -36,7 +42,7 @@ export default async function RootLayout({
           ))}
         <link rel="alternate" hrefLang="x-default" href={webUrl} />
       </head>
-      <body>{children}</body>
+      <body className={cn(comfortaa.variable, "font-sans")}>{children}</body>
     </html>
   );
 }

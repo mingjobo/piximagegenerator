@@ -26,6 +26,12 @@ export async function generateMetadata({
     },
     description: t("metadata.description") || "",
     keywords: t("metadata.keywords") || "",
+    icons: {
+      icon: "/icon.png",
+      apple: "/apple-icon.png",
+      shortcut: "/favicon.ico",
+    },
+    manifest: "/manifest.json",
   };
 }
 
