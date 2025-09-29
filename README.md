@@ -44,7 +44,7 @@ cp .env.example .env.development
 
 - Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPixelArtai%2FPixelArt-template-one&project-name=my-PixelArt-project&repository-name=my-PixelArt-project&redirect-url=https%3A%2F%2FPixelArt.ai&demo-title=PixelArt&demo-description=Ship%20Any%20AI%20Startup%20in%20hours%2C%20not%20days&demo-url=https%3A%2F%2FPixelArt.ai&demo-image=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FGgGSW3La8AAGJgU%3Fformat%3Djpg%26name%3Dlarge)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPixelArtai%2FPixelArt-template-one&project-name=my-PixelArt-project&repository-name=my-PixelArt-project&redirect-url=https%3A%2F%2Fpixelart.run&demo-title=PixelArt&demo-description=Ship%20Any%20AI%20Startup%20in%20hours%2C%20not%20days&demo-url=https%3A%2F%2Fpixelart.run&demo-image=https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FGgGSW3La8AAGJgU%3Fformat%3Djpg%26name%3Dlarge)
 
 - Deploy to Cloudflare
 
@@ -79,8 +79,8 @@ npm run cf:deploy
 
 ## Community
 
-- [PixelArt](https://PixelArt.ai)
-- [Documentation](https://docs.PixelArt.ai)
+- [PixelArt](https://pixelart.run)
+- [Documentation](https://docs.pixelart.run)
 
 ## License
 

@@ -129,7 +129,7 @@ export default async function () {
         {
           title: t("my_invites.edit_invite_link"),
           icon: "RiBookLine",
-          url: "https://docs.PixelArt.ai",
+          url: "https://docs.pixelart.run",
           target: "_blank",
           variant: "outline",
         },

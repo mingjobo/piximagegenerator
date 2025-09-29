@@ -81,19 +81,19 @@ export default async function AdminLayout({
       items: [
         {
           title: "Documents",
-          url: "https://docs.PixelArt.ai",
+          url: "https://docs.pixelart.run",
           target: "_blank",
           icon: "RiFileTextLine",
         },
         {
           title: "Blocks",
-          url: "https://PixelArt.ai/blocks",
+          url: "https://pixelart.run/blocks",
           target: "_blank",
           icon: "RiDashboardLine",
         },
         {
           title: "Showcases",
-          url: "https://PixelArt.ai/showcase",
+          url: "https://pixelart.run/showcase",
           target: "_blank",
           icon: "RiAppsLine",
         },

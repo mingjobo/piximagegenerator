@@ -3,7 +3,7 @@
   "version": "2.6.0",
   "private": true,
   "author": "idoubi",
-  "homepage": "https://PixelArt.ai",
+  "homepage": "https://pixelart.run",
   "engines": {
     "node": "20.x"
   },
