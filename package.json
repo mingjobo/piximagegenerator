@@ -24,6 +24,7 @@
     "db:studio": "npx drizzle-kit studio --config=src/db/config.ts",
     "db:push": "npx drizzle-kit push --config=src/db/config.ts",
     "db:seed": "tsx scripts/seed-examples.ts",
+    "icons:generate": "tsx scripts/generate-icons.ts",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
