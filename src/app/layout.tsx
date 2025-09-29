@@ -20,7 +20,6 @@ export default async function RootLayout({
   const locale = await getLocale();
   setRequestLocale(locale);
 
-  const webUrl = process.env.NEXT_PUBLIC_WEB_URL || "";
   const googleAdsenseCode = process.env.NEXT_PUBLIC_GOOGLE_ADCODE || "";
 
   return (
@@ -31,16 +30,10 @@ export default async function RootLayout({
           <meta name="google-adsense-account" content={googleAdsenseCode} />
         )}
 
-        {locales &&
-          locales.map((loc) => (
-            <link
-              key={loc}
-              rel="alternate"
-              hrefLang={loc}
-              href={`${webUrl}${loc === "en" ? "" : `/${loc}`}/`}
-            />
-          ))}
-        <link rel="alternate" hrefLang="x-default" href={webUrl} />
+        {/**
+         * hreflang 改为各页面在其 generateMetadata 中精确输出，
+         * 这里不再全局输出指向首页的 hreflang，避免给搜索引擎混淆信号。
+         */}
       </head>
       <body className={cn(comfortaa.variable, "font-sans")}>{children}</body>
     </html>

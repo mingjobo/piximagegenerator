@@ -21,7 +21,7 @@ export async function handleSignInUser(
     const userInfo: UserType = {
       uuid: getUuid(),
       email: user.email,
-      nickname: user.name || "",
+      nickname: user.name || user.email.split('@')[0],
       avatar_url: user.image || "",
       signin_type: account.type,
       signin_provider: account.provider,

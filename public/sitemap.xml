@@ -1,7 +1,19 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage (EN) -->
   <url>
-    <loc>https://PixelArt.ai/</loc>
-    <lastmod>2024-12-24T10:00:00+00:00</lastmod>
+    <loc>https://pixelart.run/</loc>
+  </url>
+  <!-- Homepage (ZH) -->
+  <url>
+    <loc>https://pixelart.run/zh/</loc>
+  </url>
+  <!-- Blog list (EN) -->
+  <url>
+    <loc>https://pixelart.run/posts</loc>
+  </url>
+  <!-- Blog list (ZH) -->
+  <url>
+    <loc>https://pixelart.run/zh/posts</loc>
   </url>
 </urlset>

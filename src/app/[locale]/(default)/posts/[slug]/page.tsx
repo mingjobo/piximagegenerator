@@ -25,6 +25,11 @@ export async function generateMetadata({
     description: post?.description,
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        en: `${process.env.NEXT_PUBLIC_WEB_URL}/posts/${slug}`,
+        zh: `${process.env.NEXT_PUBLIC_WEB_URL}/zh/posts/${slug}`,
+        "x-default": `${process.env.NEXT_PUBLIC_WEB_URL}/posts/${slug}`,
+      },
     },
   };
 }

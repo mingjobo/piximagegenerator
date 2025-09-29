@@ -23,6 +23,11 @@ export async function generateMetadata({
   return {
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        en: `${process.env.NEXT_PUBLIC_WEB_URL}/`,
+        zh: `${process.env.NEXT_PUBLIC_WEB_URL}/zh/`,
+        "x-default": `${process.env.NEXT_PUBLIC_WEB_URL}/`,
+      },
     },
   };
 }
