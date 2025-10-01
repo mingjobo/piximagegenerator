@@ -26,10 +26,10 @@ export async function generateMetadata({
     },
     description: t("metadata.description") || "",
     keywords: t("metadata.keywords") || "",
+    // 只保留一个主 favicon（/favicon.ico）和 Apple Touch 图标，减少重复声明
     icons: {
-      icon: "/icon.png",
+      icon: "/favicon.ico",
       apple: "/apple-icon.png",
-      shortcut: "/favicon.ico",
     },
     manifest: "/manifest.json",
   };
