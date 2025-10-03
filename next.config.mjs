@@ -33,8 +33,28 @@ const nextConfig = {
           { key: "Cache-Control", value: "public, max-age=86400" }, // 1 天
         ],
       },
+      // Next.js headers 的 source 不能在同一段里混用前缀+参数+正则，
+      // 因此分别为各尺寸显式声明
       {
-        source: "/:path(favicon-:size(16x16|32x32|48x48|64x64)\\.png)",
+        source: "/favicon-16x16.png",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
+      {
+        source: "/favicon-32x32.png",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
+      {
+        source: "/favicon-48x48.png",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
+      {
+        source: "/favicon-64x64.png",
         headers: [
           { key: "Cache-Control", value: "public, max-age=86400" },
         ],
