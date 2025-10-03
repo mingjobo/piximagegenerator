@@ -161,6 +161,60 @@
       }
     ]
   },
+  "branding": {
+    "name": "branding",
+    "title": "特色展示于",
+    "items": [
+      {
+        "title": "Tool Fame",
+        "image": {
+          "src": "/imgs/badges/toolfame.svg",
+          "alt": "特色展示于 Tool Fame"
+        },
+        "url": "https://toolfame.com"
+      },
+      {
+        "title": "Good AI Tools",
+        "image": {
+          "src": "/imgs/badges/goodaitools.png",
+          "alt": "特色展示于 Good AI Tools"
+        },
+        "url": "https://goodaitools.com"
+      },
+      {
+        "title": "Startup Benchmarks",
+        "image": {
+          "src": "/imgs/badges/startupbenchmarks.png",
+          "alt": "特色展示于 Startup Benchmarks"
+        },
+        "url": "https://startupbenchmarks.com"
+      },
+      {
+        "title": "AI Tech Viral",
+        "image": {
+          "src": "/imgs/badges/aitechviral.png",
+          "alt": "认证于 AI Tech Viral"
+        },
+        "url": "https://aitechviral.com"
+      },
+      {
+        "title": "AI X Collection",
+        "image": {
+          "src": "/imgs/badges/aixcollection.png",
+          "alt": "认证于 AI X Collection"
+        },
+        "url": "https://aixcollection.com"
+      },
+      {
+        "title": "Genify.dev",
+        "image": {
+          "src": "/imgs/badges/genify.svg",
+          "alt": "特色展示于 Genify.dev"
+        },
+        "url": "https://genify.dev"
+      }
+    ]
+  },
   "footer": {
     "name": "footer",
     "brand": {

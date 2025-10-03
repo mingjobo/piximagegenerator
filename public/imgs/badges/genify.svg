@@ -1,0 +1,6 @@
+<svg width="160" height="54" viewBox="0 0 160 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="54" rx="8" fill="#1a1a1a"/>
+  <rect x="1" y="1" width="158" height="52" rx="7" stroke="#333" stroke-width="2"/>
+  <text x="80" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#999" text-anchor="middle">Featured on</text>
+  <text x="80" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#fff" text-anchor="middle">Genify.dev</text>
+</svg>

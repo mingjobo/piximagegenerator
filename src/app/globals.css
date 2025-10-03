@@ -45,3 +45,22 @@ button {
 pre {
   @apply px-4;
 }
+
+/* Infinite horizontal scroll animation */
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-horizontal {
+  animation: scroll-horizontal 40s linear infinite;
+}
+
+/* Pause animation on hover */
+.animate-scroll-horizontal:hover {
+  animation-play-state: paused;
+}

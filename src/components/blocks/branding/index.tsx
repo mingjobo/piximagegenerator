@@ -5,27 +5,48 @@ export default function Branding({ section }: { section: SectionType }) {
     return null;
   }
 
+  // Duplicate items for seamless scrolling
+  const duplicatedItems = section.items ? [...section.items, ...section.items] : [];
+
   return (
-    <section id={section.name} className="py-16">
-      <div className="container flex flex-row items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <h2 className="text-center: text-muted-foreground lg:text-left">
-            {section.title}
-          </h2>
-          <div className="flex flex-wrap items-center justify-center gap-8 mt-4">
-            {section.items?.map((item, idx) => {
-              if (item.image) {
-                return (
-                  <img
-                    key={idx}
-                    src={item.image.src}
-                    alt={item.image.alt || item.title}
-                    className="h-7 dark:invert"
-                  />
-                );
-              }
-            })}
-          </div>
+    <section id={section.name} className="mt-8 border-t pt-8">
+      <div className="relative w-full overflow-hidden">
+        <div className="flex animate-scroll-horizontal">
+          {duplicatedItems?.map((item, idx) => {
+            const content = item.image ? (
+              <img
+                src={item.image.src}
+                alt={item.image.alt || item.title}
+                height={54}
+                className="max-h-14 object-contain dark:invert"
+              />
+            ) : null;
+
+            if (item.url && content) {
+              return (
+                <div key={idx} className="flex-shrink-0 px-8 md:px-12 lg:px-16">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    {content}
+                  </a>
+                </div>
+              );
+            }
+
+            if (content) {
+              return (
+                <div key={idx} className="flex-shrink-0 px-8 md:px-12 lg:px-16">
+                  {content}
+                </div>
+              );
+            }
+
+            return null;
+          })}
         </div>
       </div>
     </section>
