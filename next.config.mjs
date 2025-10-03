@@ -24,6 +24,36 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        // 统一为 favicon 设置温和缓存，避免长期持有旧内容
+        source: "/favicon.ico",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" }, // 1 天
+        ],
+      },
+      {
+        source: "/:path(favicon-:size(16x16|32x32|48x48|64x64)\\.png)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
+      {
+        source: "/apple-icon.png",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
+      {
+        // Manifest 也给短缓存，便于快速迭代
+        source: "/manifest.json",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [];
   },

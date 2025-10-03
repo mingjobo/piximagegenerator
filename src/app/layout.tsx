@@ -26,15 +26,10 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {/* Favicon & PWA */}
-        {/* 将 48x48 PNG 放在首位，并加版本参数以击穿缓存 */}
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png?v=20251003-1" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        {/* ICO 作为兜底 */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
+        {/**
+         * Favicon 与 Manifest 由 src/app/[locale]/layout.tsx 的 generateMetadata 统一输出，
+         * 这里不再手写 <link rel="icon">，以减少重复和潜在冲突信号。
+         */}
         <meta name="theme-color" content="#ffffff" />
         {googleAdsenseCode && (
           <meta name="google-adsense-account" content={googleAdsenseCode} />
