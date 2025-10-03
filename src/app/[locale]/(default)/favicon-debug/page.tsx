@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const items = [
@@ -14,7 +13,7 @@ export default function FaviconDebugPage() {
 
   useEffect(() => {
     items.forEach((it) => {
-      const img = new Image();
+      const img = new window.Image();
       img.onload = () => {
         setSizes((s) => ({ ...s, [it.src]: `${img.width}x${img.height}` }));
       };
@@ -46,4 +45,3 @@ export default function FaviconDebugPage() {
     </section>
   );
 }
-
