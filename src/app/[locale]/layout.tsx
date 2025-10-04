@@ -26,9 +26,12 @@ export async function generateMetadata({
     },
     description: t("metadata.description") || "",
     keywords: t("metadata.keywords") || "",
-    // 只保留一个主 favicon（/favicon.ico）和 Apple Touch 图标，减少重复声明
+    // 明确声明 Search 友好的 48x48 PNG，并保留 ICO 作为回退
     icons: {
-      icon: "/favicon.ico",
+      icon: [
+        { url: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
+        { url: "/favicon.ico", type: "image/x-icon" },
+      ],
       apple: "/apple-icon.png",
     },
     manifest: "/manifest.json",
