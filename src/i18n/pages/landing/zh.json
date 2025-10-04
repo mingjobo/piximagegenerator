@@ -228,6 +228,14 @@
           "alt": "Discover more AI tools at aifinder.site"
         },
         "url": "https://aifinder.site"
+      },
+      {
+        "title": "ShowMeBestAI",
+        "image": {
+          "src": "/imgs/badges/showmebest.webp",
+          "alt": "Featured on ShowMeBestAI"
+        },
+        "url": "https://www.showmebest.ai"
       }
     ]
   },
