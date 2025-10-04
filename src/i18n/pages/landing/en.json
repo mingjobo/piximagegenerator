@@ -169,9 +169,9 @@
         "title": "Tool Fame",
         "image": {
           "src": "/imgs/badges/toolfame.svg",
-          "alt": "Featured on Tool Fame"
+          "alt": "Featured on toolfame.com"
         },
-        "url": "https://toolfame.com"
+        "url": "https://toolfame.com/item/pixelart"
       },
       {
         "title": "Good AI Tools",
@@ -212,6 +212,22 @@
           "alt": "Featured on Genify.dev"
         },
         "url": "https://genify.dev"
+      },
+      {
+        "title": "AI Finder Light",
+        "image": {
+          "src": "/imgs/badges/aifinder-light.png",
+          "alt": "Discover more AI tools at aifinder.site"
+        },
+        "url": "https://aifinder.site"
+      },
+      {
+        "title": "AI Finder Dark",
+        "image": {
+          "src": "/imgs/badges/aifinder-dark.png",
+          "alt": "Discover more AI tools at aifinder.site"
+        },
+        "url": "https://aifinder.site"
       }
     ]
   },
