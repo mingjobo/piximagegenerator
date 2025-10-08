@@ -26,14 +26,8 @@ export async function generateMetadata({
     },
     description: t("metadata.description") || "",
     keywords: t("metadata.keywords") || "",
-    // 明确声明 Search 友好的 48x48 PNG，并保留 ICO 作为回退
-    icons: {
-      icon: [
-        { url: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
-        { url: "/favicon.ico", type: "image/x-icon" },
-      ],
-      apple: "/apple-icon.png",
-    },
+    // 为简化，当前仅暴露单一 ICO（包含多尺寸），避免多源混淆
+    icons: { icon: "/favicon.ico" },
     manifest: "/manifest.json",
   };
 }
