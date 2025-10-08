@@ -27,10 +27,10 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // 统一为 favicon 设置温和缓存，避免长期持有旧内容
+        // 暂时降低 favicon.ico 的缓存强度，强制各层尽快重抓（修复旧小图标残留）
         source: "/favicon.ico",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=86400" }, // 1 天
+          { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
         ],
       },
       // Next.js headers 的 source 不能在同一段里混用前缀+参数+正则，
